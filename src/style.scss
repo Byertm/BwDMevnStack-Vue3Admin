@@ -1,0 +1,151 @@
+:root {
+	font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+	font-size: 16px;
+	line-height: 24px;
+	font-weight: 400;
+
+	color-scheme: light dark;
+	color: rgba(255, 255, 255, 0.87);
+	background-color: #242424;
+
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-text-size-adjust: 100%;
+}
+
+a {
+	font-weight: 500;
+	color: #646cff;
+	text-decoration: inherit;
+}
+
+a:hover {
+	color: #535bf2;
+}
+
+body {
+	display: block;
+	margin: 0;
+	min-width: 320px;
+	min-height: 100vh;
+}
+
+h1 {
+	font-size: 3.2em;
+	line-height: 1.1;
+}
+
+button {
+	border-radius: 8px;
+	border: 1px solid transparent;
+	padding: 0.6em 1.2em;
+	font-size: 1em;
+	font-weight: 500;
+	font-family: inherit;
+	background-color: #1a1a1a;
+	cursor: pointer;
+	transition: border-color 0.25s;
+}
+
+button:hover {
+	border-color: #646cff;
+}
+
+button:focus,
+button:focus-visible {
+	outline: 4px auto -webkit-focus-ring-color;
+}
+
+// #app {
+// 	display: flex;
+// 	place-items: center;
+// 	width: 100%;
+// 	height: 100%;
+// 	max-width: 1280px;
+// 	margin: 0 auto;
+// 	padding: 2rem;
+// 	text-align: center;
+// }
+
+@media (prefers-color-scheme: light) {
+	:root {
+		color: #213547;
+		background-color: #ffffff;
+	}
+
+	a:hover {
+		color: #747bff;
+	}
+
+	button {
+		background-color: #f9f9f9;
+	}
+}
+
+// #region Custom Styles
+::-webkit-scrollbar {
+	&,
+	&-corner {
+		width: 15px;
+		height: 15px;
+		background-color: #313642;
+	}
+
+	&-thumb {
+		background-color: rgba(255, 255, 255, 0.1);
+		min-height: 60px;
+		box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.2);
+		}
+	}
+}
+
+#left-col {
+	&::-webkit-scrollbar {
+		&,
+		&-corner {
+			width: 6px;
+			height: 6px;
+		}
+	}
+}
+
+.uk-notification-message {
+	--bg-color: #1a1a1a;
+	--clr: #f9f9f9;
+	background-color: var(--bg-color);
+	color: var(--clr);
+	border-radius: 1rem;
+
+	&.uk-notification-message {
+		&-primary {
+			--bg-color: #116dca;
+			--clr: #1e87f0;
+		}
+
+		&-success {
+			--bg-color: #0dec72;
+			--clr: #019644;
+		}
+
+		&-danger {
+			--bg-color: #ff0040;
+			--clr: #9e0128;
+		}
+
+		&-warning {
+			--bg-color: #ffdd00;
+			--clr: #b39b00;
+		}
+
+		&-invalid {
+			--bg-color: #6d6c6c;
+			--clr: #2e2e2e;
+		}
+	}
+}
+// #endregion
