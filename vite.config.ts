@@ -1,28 +1,21 @@
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import { fileURLToPath, URL } from 'url';
-
-/*
-	import AutoImport from "unplugin-auto-import/vite";
-	AutoImport({
-	//Targets (file extensions)
-	include: [
-		/\.[tj]sx?$/, //Regex which says t or j followed by sx. //tsx, jsx, ? next to x says it can happen zero or one time js,ts
-		/\.vue$/, //$ at the end says it ends with vue
-	],
-	//globals (libraries)
-	imports: ["vue", "vue-router", "pinia"],
-	//other settings/files/dirs to import
-	dts: true, //Autoimport all the files that ends with d.ts
-	//Autoimport inside vue template
-	vueTemplate: true,
-	eslintrc: { enabled: true },
-	}),
-*/
+import AutoImport from 'unplugin-auto-import/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	plugins: [vue()],
+	plugins: [
+		vue(),
+		AutoImport({
+			include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/],
+			imports: ['vue', 'vue-router', 'pinia', { from: 'vue-router', imports: ['RouteLocationRaw'], type: true }],
+			dts: true,
+			cache: false,
+			vueTemplate: true,
+			eslintrc: { enabled: true }
+		})
+	],
 	resolve: {
 		alias: {
 			'@components': fileURLToPath(new URL('./src/components', import.meta.url)),
@@ -45,15 +38,16 @@ export default defineConfig({
 			'@nodemodules': fileURLToPath(new URL('./nodemodules', import.meta.url))
 		}
 	},
-	// server: {
-	// 	proxy: {
-	// 		'/api': {
-	// 			target: 'http://localhost:9000/',
-	// 			changeOrigin: true,
-	// 			secure: false,
-	// 			rewrite: (path) => path.replace(/^\/api/, '')
-	// 		},
-	// 		cors: false
-	// 	}
-	// }
+	server: {
+		open: true
+		// cors: false,
+		// proxy: {
+		// 	'/api': {
+		// 		target: 'http://localhost:9000/',
+		// 		changeOrigin: true,
+		// 		secure: false,
+		// 		rewrite: (path) => path.replace(/^\/api/, '')
+		// 	}
+		// }
+	}
 });
