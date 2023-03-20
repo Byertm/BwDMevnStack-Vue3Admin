@@ -9,6 +9,7 @@ import Vue3EasyDataTable from 'vue3-easy-data-table';
 import CustomImageSelector from '@components/shared/FormKit/CustomImageSelector.vue';
 import OneTimePassword from '@components/shared/FormKit/OneTimePassword.vue';
 import QuillTextarea from '@components/shared/FormKit/QuillTextarea.vue';
+import WangEditor from '@components/shared/FormKit/WangEditor.vue';
 import 'vue3-easy-data-table/dist/style.css';
 
 import '@vueup/vue-quill/dist/vue-quill.snow.css';
@@ -48,6 +49,7 @@ async function startApp() {
 	adminApp.component('font-awesome-icon', FontAwesomeIcon);
 	adminApp.component('EasyDataTable', Vue3EasyDataTable);
 	adminApp.component('QuillEditor', QuillEditor);
+	adminApp.component('WangEditor', WangEditor);
 
 	adminApp.use(router);
 	adminApp.use(pinia);
@@ -58,7 +60,8 @@ async function startApp() {
 			inputs: {
 				otp: createInputFormKit(OneTimePassword, { props: ['digits'] }),
 				cis: createInputFormKit(CustomImageSelector, { props: ['categoryName', 'showSourceSwitcher'] }),
-				qt: createInputFormKit(QuillTextarea)
+				qt: createInputFormKit(QuillTextarea),
+				we: createInputFormKit(WangEditor)
 			}
 		})
 	);

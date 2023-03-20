@@ -23,7 +23,8 @@
 	<FormKit type="form" v-model="formData" :actions="false" @submit="formKitSubmit">
 		<FormKit type="text" label="Post Title" name="title" help="İçerik başlığı giriniz" validation="required|length:3,250" data-validation-visibility="live" />
 		<FormKit type="text" label="Post Pre Title" name="preTitle" help="İçerik alt başlığı giriniz" validation="required|length:3,150" data-validation-visibility="live" />
-		<FormKit type="qt" label="Post Content" name="content" help="İçerik açıklaması giriniz" validation="required|length:3,500" data-validation-visibility="live" />
+		<!-- <FormKit type="qt" label="Post Content" name="content" help="İçerik açıklaması giriniz" validation="required|length:3,500" data-validation-visibility="live" /> -->
+		<FormKit type="we" label="Post Content" name="content" help="İçerik açıklaması giriniz" validation="required|length:3,500" data-validation-visibility="live" />
 		<FormKit type="cis" category-name="post" label="Post Image Url" name="imageUrl" help="Bir içerik görseli seçiniz" validation="required|length:3,500" data-validation-visibility="live" />
 		<FormKit type="select" label="Author" name="author" :options="userList" help="İçerik yazarı seçiniz" validation="" data-validation-visibility="live" />
 		<FormKit type="select" label="Category" :options="categoryList" name="category" help="Kategori seçiniz" validation="" data-validation-visibility="live" />
@@ -32,6 +33,8 @@
 		<FormKit type="checkbox" label="Active" name="isActive" validation="" />
 		<FormKit type="submit">Gönder</FormKit>
 	</FormKit>
+
+	<!-- <span>formData {{ formData }}</span> -->
 </template>
 
 <script setup lang="ts">
@@ -51,7 +54,7 @@
 	const tagStore = useTagStore();
 	const userStore = useUserStore();
 
-	const formData = ref();
+	const formData = ref({});
 	const categoryList: Ref<FormKitOptionsList> = ref([]);
 	const tagList: Ref<FormKitOptionsList> = ref([]);
 	const userList: Ref<FormKitOptionsList> = ref([]);

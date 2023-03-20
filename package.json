@@ -19,6 +19,8 @@
 		"@fortawesome/vue-fontawesome": "^3.0.3",
 		"@vue/reactivity": "^3.2.47",
 		"@vueup/vue-quill": "^1.1.1",
+		"@wangeditor/editor": "^5.1.23",
+		"@wangeditor/editor-for-vue": "^5.1.12",
 		"axios": "^1.2.5",
 		"bootstrap": "^5.2.3",
 		"canvas-confetti": "^1.6.0",
