@@ -1,5 +1,5 @@
 {
-	"name": "bwdadmin",
+	"name": "bwd_vue3_admin",
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
@@ -9,6 +9,7 @@
 		"preview": "vite preview"
 	},
 	"dependencies": {
+		"@formkit/inputs": "^0.16.4",
 		"@formkit/themes": "^1.0.0-beta.15",
 		"@formkit/utils": "^1.0.0-beta.15",
 		"@formkit/vue": "^1.0.0-beta.15",
