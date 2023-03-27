@@ -1,3 +1,5 @@
+import { formatDate } from '@plugins/formatDate';
+
 declare module '@vue/runtime-core' {
 	interface ComponentCustomOptions {
 		customTest?(n: number): void;
@@ -5,8 +7,12 @@ declare module '@vue/runtime-core' {
 
 	import UIkit from 'uikit';
 	interface ComponentCustomProperties {
+		$formatDate: typeof formatDate;
 		$uikit: typeof UIkit;
 		state?: 'stopped' | 'running';
+		// $filters: any;
+		// $version: string;
+		// $bus: typeof $bus;
 	}
 
 	interface ComponentCustomProps {
@@ -23,7 +29,12 @@ declare module 'vue' {
 
 	import UIkit from 'uikit';
 	interface ComponentCustomProperties {
+		$formatDate: typeof formatDate;
 		$uikit: typeof UIkit;
+		state?: 'stopped' | 'running';
+		// $filters: any;
+		// $version: string;
+		// $bus: typeof $bus;
 	}
 }
 
