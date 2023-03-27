@@ -26,11 +26,6 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
-	import type { Ref } from "vue";
-	import { ref, toRefs } from "vue";
-	import { watch } from "vue";
-	// import { object, string, array, number, boolean } from "yup";
 	import { useCommentStore, usePostStore } from "@/stores";
 	import { FormKitOptionsList } from "@formkit/inputs";
 	import { IComment } from "@models/index";

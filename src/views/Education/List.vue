@@ -101,8 +101,6 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
-	import { defineAsyncComponent } from "vue";
 	import { useEducationStore } from "@stores/education.store";
 	import { IEducation } from "@models/index";
 	import toast from "@utils/toast";

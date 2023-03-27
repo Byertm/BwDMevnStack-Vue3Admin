@@ -5,7 +5,7 @@ export interface IEducation extends IDocument {
 	scholl: string;
 	section: string;
 	description: string;
-	startDate: Date;
-	finishDate: Date | string;
+	startDate: string;
+	finishDate: string;
 	isActive: boolean;
 }

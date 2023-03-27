@@ -17,8 +17,6 @@
 
 <script setup lang="ts">
 	import { QuillEditor } from "@vueup/vue-quill";
-	import { ref } from "vue";
-	import { onDeactivated } from "vue";
 
 	const props = defineProps<{ context: any }>();
 

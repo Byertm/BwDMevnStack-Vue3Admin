@@ -14,8 +14,6 @@
 </template>
 
 <script lang="ts" setup>
-	import { computed, ref, toRef } from "vue";
-	import { watch } from "vue";
 	import { useField } from "vee-validate";
 
 	const props = defineProps({

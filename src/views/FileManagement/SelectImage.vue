@@ -35,10 +35,8 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
 	import { useFileStore } from "@/stores";
 	import { IFile, TSelectedElement } from "@models/file";
-	import { onMounted } from "vue";
 	const fileStore = useFileStore();
 	const { isFilesByMiddlePath, filesByMiddlePath, getFilesByMiddlePath, isEmptyFilesByMiddlePath, isErrorFilesByMiddlePath } = storeToRefs(fileStore);
 	const { loading, errors, data: images } = filesByMiddlePath.value;

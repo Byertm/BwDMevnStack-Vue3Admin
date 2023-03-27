@@ -23,10 +23,6 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
-	import { ref, toRefs } from "vue";
-	import { watch } from "vue";
-	// import { object, string, array, number, boolean } from "yup";
 	import { useRoleStore } from "@/stores";
 	import { IRole } from "@models/index";
 	import router from "@router/index";

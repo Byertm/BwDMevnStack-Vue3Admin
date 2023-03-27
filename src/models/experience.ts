@@ -5,7 +5,7 @@ export interface IExperience extends IDocument {
 	company: string;
 	section: string;
 	description: string;
-	startDate: Date;
-	finishDate: Date | string;
+	startDate: string;
+	finishDate: string;
 	isActive: boolean;
 }

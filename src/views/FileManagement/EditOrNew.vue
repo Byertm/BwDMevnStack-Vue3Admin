@@ -7,8 +7,6 @@
 </template>
 
 <script setup lang="ts">
-	import { ref } from "vue";
-
 	const formData = ref();
 
 	const editFileOrDirectory = (props: any) => {};

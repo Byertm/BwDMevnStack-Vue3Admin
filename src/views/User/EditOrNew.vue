@@ -18,7 +18,7 @@
 	<FormKit type="form" v-model="formData" :actions="false" @submit="formKitSubmit">
 		<FormKit type="text" label="User First Name" name="first_name" help="Kullanıcı ismini giriniz" validation="required|length:3,250" data-validation-visibility="live" />
 		<FormKit type="text" label="User Last Name" name="last_name" help="Kullanıcı soyadı giriniz" validation="required|length:3,250" data-validation-visibility="live" />
-		<FormKit type="text" label="User Email" name="email" help="Kullanıcı e-posta giriniz" validation="required|length:3,150" data-validation-visibility="live" />
+		<FormKit type="text" label="User Email" name="email" help="Kullanıcı e-posta giriniz" validation="required|length:3,250" data-validation-visibility="live" />
 		<FormKit type="select" label="User Roles" name="roles" :options="roleList" :multiple="true" help="İçerik etiketleri seçiniz" validation="" data-validation-visibility="live" />
 		<FormKit type="checkbox" label="Active" name="isActive" validation="" />
 		<FormKit type="submit">Gönder</FormKit>
@@ -26,10 +26,6 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
-	import type { Ref } from "vue";
-	import { ref, toRefs } from "vue";
-	import { watch } from "vue";
 	import { FormKitOptionsList } from "@formkit/inputs";
 	import { useRoleStore, useUserStore } from "@/stores";
 	import { IUser } from "@models/user";

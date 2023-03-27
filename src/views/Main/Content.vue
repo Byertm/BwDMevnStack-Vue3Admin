@@ -219,8 +219,6 @@
 </template>
 
 <script setup lang="ts">
-	import { onMounted, ref } from "vue";
-	import { storeToRefs } from "pinia";
 	import { useAuthStore, useUserStore } from "@/stores";
 	import toast from "@utils/toast";
 

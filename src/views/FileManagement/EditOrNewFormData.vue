@@ -11,7 +11,6 @@
 	import { BASE_API_URL } from "@utils/constants";
 	import { getLS } from "@src/composables/local-storage";
 	import { ICategory } from "@models/category";
-	import { computed, Ref, ref } from "vue";
 
 	// Note: Burası ICategory den IFile a dönecek ona göre de photo bilgisi açılacak.
 	const formData: Ref<Partial<ICategory>> = ref({});

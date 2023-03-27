@@ -17,17 +17,13 @@
 
 	<FormKit type="form" v-model="formData" :actions="false" @submit="formKitSubmit">
 		<FormKit type="text" label="Testimonial Title" name="title" help="Bir bildirim adı giriniz" validation="required|length:3,50" data-validation-visibility="live" />
-		<FormKit type="text" label="Testimonial Content" name="content" help="Bir bildirim içeriği giriniz" validation="required|length:3,250" data-validation-visibility="live" />
+		<FormKit type="text" label="Testimonial Content" name="content" help="Bir bildirim içeriği giriniz" validation="required|length:3,500" data-validation-visibility="live" />
 		<FormKit type="checkbox" label="Testimonial Is Active" name="isActive" />
 		<FormKit type="submit">Gönder</FormKit>
 	</FormKit>
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
-	import { ref, toRefs } from "vue";
-	import { watch } from "vue";
-	// import { object, string, array, number, boolean } from "yup";
 	import { useTestimonialStore } from "@/stores";
 	import { ITestimonial } from "@models/index";
 	import router from "@router/index";

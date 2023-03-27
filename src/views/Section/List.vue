@@ -96,8 +96,6 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
-	import { defineAsyncComponent } from "vue";
 	import { useSectionStore } from "@stores/section.store";
 	import { ISection } from "@models/index";
 	import toast from "@utils/toast";

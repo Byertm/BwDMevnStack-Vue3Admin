@@ -18,15 +18,82 @@
 <script setup lang="ts">
 	import "@wangeditor/editor/dist/css/style.css"; // import css
 
-	import { onMounted, onBeforeUnmount, ShallowRef, shallowRef } from "vue";
-	import { IDomEditor, IEditorConfig, IToolbarConfig } from "@wangeditor/editor";
+	import type { ShallowRef } from "@vue/reactivity";
+	import { i18nAddResources, i18nChangeLanguage, i18nGetResources, IDomEditor, IEditorConfig, IToolbarConfig } from "@wangeditor/editor";
 	import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
 
 	const props = defineProps<{ context: any }>();
 
+	// i18nAddResources("tr", { header: { title: "başlık", text: "metin" } });
+	// const resources = i18nGetResources("tr");
+	// const resources = i18nGetResources("en");
+	i18nChangeLanguage("en");
+
 	const editorRef: ShallowRef<any> = shallowRef();
 	const editorConfig: Partial<IEditorConfig> = { placeholder: "Type here..." };
-	const toolbarConfig: Partial<IToolbarConfig> = { toolbarKeys: ["headerSelect", "|", "bold", "italic", { key: "group-more-style", title: "more", iconSvg: "<svg>....</svg>", menuKeys: ["through", "code", "clearStyle"] }] };
+	const allToolbarConfigKeys = [
+		"bold",
+		"underline",
+		"italic",
+		"through",
+		"code",
+		"sub",
+		"sup",
+		"clearStyle",
+		"color",
+		"bgColor",
+		"fontSize",
+		"fontFamily",
+		"indent",
+		"delIndent",
+		"justifyLeft",
+		"justifyRight",
+		"justifyCenter",
+		"justifyJustify",
+		"lineHeight",
+		"insertImage",
+		"deleteImage",
+		"editImage",
+		"viewImageLink",
+		"imageWidth30",
+		"imageWidth50",
+		"imageWidth100",
+		"divider",
+		"emotion",
+		"insertLink",
+		"editLink",
+		"unLink",
+		"viewLink",
+		"codeBlock",
+		"blockquote",
+		"headerSelect",
+		"header1",
+		"header2",
+		"header3",
+		"header4",
+		"header5",
+		"todo",
+		"redo",
+		"undo",
+		"fullScreen",
+		"enter",
+		"bulletedList",
+		"numberedList",
+		"insertTable",
+		"deleteTable",
+		"insertTableRow",
+		"deleteTableRow",
+		"insertTableCol",
+		"deleteTableCol",
+		"tableHeader",
+		"tableFullWidth",
+		"insertVideo",
+		"uploadVideo",
+		"editVideoSize",
+		"uploadImage",
+		"codeSelectLang"
+	];
+	const toolbarConfig: Partial<IToolbarConfig> = { excludeKeys: ["insertVideo", "uploadVideo", "editVideoSize"] };
 	const mode: "default" | "simple" = "simple";
 
 	const isEmptyEditor = (eValue: string): boolean => eValue === "" || eValue === "<p><br></p>";

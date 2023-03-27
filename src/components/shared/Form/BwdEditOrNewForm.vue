@@ -5,7 +5,6 @@
 </template>
 
 <script setup lang="ts">
-	import { ref } from "vue";
 	import BwdFormWrapper from "./BwdFormWrapper.vue";
 	import { IFormSchema } from "./IBwdInput";
 

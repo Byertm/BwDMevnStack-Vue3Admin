@@ -33,9 +33,6 @@
 </template>
 
 <script setup lang="ts">
-	import type { Ref } from "vue";
-	import { ref } from "vue";
-	import { defineAsyncComponent } from "vue";
 	import { getApiImageByImageUrl } from "@services/file.service";
 
 	const props = defineProps<{ context: any }>();

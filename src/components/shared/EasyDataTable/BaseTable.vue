@@ -21,9 +21,7 @@
 </template>
 
 <script setup lang="ts">
-	import { ref, computed, watch } from "vue";
 	import type { Header, Item, ClickRowArgument, ServerOptions } from "vue3-easy-data-table";
-	import { storeToRefs } from "pinia";
 	import { usePostStore } from "@/stores";
 	import { IPost } from "@models/post";
 

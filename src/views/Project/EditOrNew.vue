@@ -17,7 +17,7 @@
 
 	<FormKit type="form" v-model="formData" :actions="false" @submit="formKitSubmit">
 		<FormKit type="text" label="Project Name" name="name" help="Proje adı giriniz" validation="required|length:3,50" data-validation-visibility="live" />
-		<FormKit type="qt" label="Project Description" name="description" help="Proje açıklaması giriniz" validation="required|length:3,500" data-validation-visibility="live" />
+		<FormKit type="we" label="Project Description" name="description" help="Proje açıklaması giriniz" validation="required|length:3,5000" data-validation-visibility="live" />
 		<FormKit type="text" label="Project Demo Preview Url" name="demoPreviewUrl" help="Proje demo gösterim adresi giriniz" validation="required|length:3,50" data-validation-visibility="live" />
 		<FormKit type="text" label="Project Deploy Url" name="deployUrl" help="Proje çıkış adresi giriniz" validation="required|length:3,50" data-validation-visibility="live" />
 		<FormKit type="cis" category-name="project" label="Category Url" name="imageUrl" help="Bir kategori görseli seçiniz" validation="required|length:3,500" data-validation-visibility="live" />
@@ -30,10 +30,6 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
-	import type { Ref } from "vue";
-	import { ref, toRefs } from "vue";
-	import { inject, watch } from "vue";
 	import { useProjectStore, useCategoryStore } from "@/stores";
 	import { FormKitOptionsList } from "@formkit/inputs";
 	import { IProject } from "@models/index";

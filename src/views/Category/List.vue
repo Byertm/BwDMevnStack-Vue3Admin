@@ -98,9 +98,6 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
-	import type { Ref } from "vue";
-	import { defineAsyncComponent, ref, watch } from "vue";
 	import { getApiImageByImageUrl } from "@services/file.service";
 	import { useCategoryStore } from "@/stores";
 	import { ICategory } from "@models/index";

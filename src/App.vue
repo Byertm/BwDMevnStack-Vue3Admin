@@ -89,8 +89,6 @@
 </style>
 
 <script setup lang="ts">
-	import { useRoute } from "vue-router";
-	import { ref, watch, markRaw } from "vue";
 	import DefaultLayout from "@layouts/Default.vue";
 
 	const layout = ref();

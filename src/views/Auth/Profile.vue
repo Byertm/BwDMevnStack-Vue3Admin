@@ -89,10 +89,7 @@
 </template>
 
 <script setup lang="ts">
-	import { onBeforeMount, ref, watch } from "vue";
-	import { storeToRefs } from "pinia";
 	import { useAuthStore, useUserStore, useRoleStore } from "@/stores";
-	import router from "@router/index";
 	import { IRole } from "@models/role";
 
 	const authStore = useAuthStore();
@@ -100,6 +97,8 @@
 	const roleStore = useRoleStore();
 	const { getRoles, isRoles } = storeToRefs(roleStore);
 	const { getMe, isMe } = storeToRefs(userStore);
+
+	const router = useRouter();
 
 	const roles = ref<IRole[]>([]);
 	const filteredRoles = ref<IRole[]>([]);

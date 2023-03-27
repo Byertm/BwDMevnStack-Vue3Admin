@@ -77,14 +77,12 @@
 
 <script setup lang="ts">
 	import { object, string } from "yup";
-	import { useRoute } from "vue-router";
-	import { markRaw } from "vue";
 	import { Form, Field, ErrorMessage } from "vee-validate";
 	import { useAuthStore } from "@/stores";
-	import router from "@router/index";
 	import toast from "@utils/toast";
 
 	const route = useRoute();
+	const router = useRouter();
 	const authStore = useAuthStore();
 
 	// redirect to home if already logged in

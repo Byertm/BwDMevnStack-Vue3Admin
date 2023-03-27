@@ -29,9 +29,6 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
-	import { ref, toRefs } from "vue";
-	import { watch } from "vue";
 	import { useSkillStore } from "@/stores";
 	import { ISkill } from "@models/index";
 	import router from "@router/index";

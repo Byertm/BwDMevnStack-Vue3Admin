@@ -14,9 +14,7 @@
 </template>
 
 <script setup lang="ts">
-	import { reactive, watch } from "vue";
 	import TableLite from "vue3-table-lite/ts";
-	import { storeToRefs } from "pinia";
 	import { usePostStore } from "@/stores";
 	import { IPost } from "@models/post";
 

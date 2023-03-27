@@ -16,7 +16,6 @@
 	import Footer from "@components/layout/Auth/Footer.vue";
 
 	// import UIkit from "uikit";
-	// import { onBeforeMount, onBeforeUnmount } from "vue";
 
 	// const wrapperElementAttrAndClassProps = (addOrRemove: boolean) => {
 	// 	const el = document.querySelector("#app"); // document.body

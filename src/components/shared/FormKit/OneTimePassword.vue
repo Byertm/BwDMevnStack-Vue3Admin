@@ -3,8 +3,6 @@
 </template>
 
 <script setup lang="ts">
-	import { ref } from "vue";
-
 	const props = defineProps<{ context: any }>();
 
 	const digits = Number(props.context.digits);

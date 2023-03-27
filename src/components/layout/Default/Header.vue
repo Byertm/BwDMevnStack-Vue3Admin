@@ -76,7 +76,6 @@
 </template>
 
 <script setup lang="ts">
-	import { ref } from "vue";
 	import ThemeSwitcher from "../Shared/ThemeSwitcher.vue";
 
 	const iSearch = ref("");

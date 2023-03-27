@@ -88,8 +88,6 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
-	import { defineAsyncComponent } from "vue";
 	import { useTagStore } from "@stores/tag.store";
 	import { ITag } from "@models/index";
 	import toast from "@utils/toast";

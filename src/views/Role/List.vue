@@ -84,8 +84,6 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
-	import { defineAsyncComponent } from "vue";
 	import { useRoleStore } from "@stores/role.store";
 	import { IRole } from "@models/index";
 	import toast from "@utils/toast";

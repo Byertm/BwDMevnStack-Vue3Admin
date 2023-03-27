@@ -6,8 +6,6 @@
 </template>
 
 <script setup lang="ts">
-	import { ref, onMounted } from "vue";
-
 	export type UserTheme = "light" | "dark";
 
 	const setTheme = (theme: UserTheme) => {

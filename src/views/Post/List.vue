@@ -117,9 +117,6 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
-	import { reactive, Ref } from "vue";
-	import { defineAsyncComponent, ref, watch } from "vue";
 	import type { TPaginationOptions } from "@components/shared/Pagination/CustomPagination.vue";
 	import CustomPagination from "@components/shared/Pagination/CustomPagination.vue";
 	import { getApiImageByImageUrl } from "@services/file.service";

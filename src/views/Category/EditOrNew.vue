@@ -31,16 +31,12 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
-	import type { Ref } from "vue";
-	import { ref, toRefs } from "vue";
-	import { watch } from "vue";
 	import { FormKitOptionsList } from "@formkit/inputs";
 	import { useCategoryStore } from "@/stores";
 	import { ICategory } from "@models/index";
-	import router from "@router/index";
 	import toast from "@utils/toast";
 
+	const router = useRouter();
 	const categoryStore = useCategoryStore();
 
 	const formData: Ref<Partial<ICategory>> = ref({});

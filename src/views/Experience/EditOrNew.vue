@@ -19,7 +19,7 @@
 		<FormKit type="text" label="Experience Title" name="title" help="Bir eğitim başlığı giriniz" validation="required|length:3,100" data-validation-visibility="live" />
 		<FormKit type="text" label="Experience Company" name="company" help="Bir okul adı giriniz" validation="required|length:3,100" data-validation-visibility="live" />
 		<FormKit type="text" label="Experience Section" name="section" help="Bir alan giriniz" validation="required|length:3,100" data-validation-visibility="live" />
-		<FormKit type="text" label="Experience Description" name="description" help="Bir açıklama giriniz" validation="required|length:3,500" data-validation-visibility="live" />
+		<FormKit type="text" label="Experience Description" name="description" help="Bir açıklama giriniz" validation="required|length:3,2500" data-validation-visibility="live" />
 		<FormKit type="date" label="Start Date" name="startDate" help="Bir başlangıç tarihi seçiniz" validation="required" data-validation-visibility="live" />
 		<FormKit type="date" label="Finish Date" name="finishDate" help="Bir bitiş tarihi seçiniz" validation="required" data-validation-visibility="live" />
 		<FormKit type="checkbox" label="Experience Is Active" name="isActive" />
@@ -28,10 +28,6 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
-	import { ref, toRefs } from "vue";
-	import { inject, watch } from "vue";
-	// import { object, string, array, number, boolean } from "yup";
 	import { useExperienceStore } from "@/stores";
 	import { IExperience } from "@models/index";
 	import router from "@router/index";

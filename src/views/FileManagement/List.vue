@@ -144,9 +144,6 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
-	import { computed, reactive, Ref } from "vue";
-	import { defineAsyncComponent, nextTick, onMounted, ref, watch } from "vue";
 	import { IFile, IFileAndAttrs, TFileAttrs, TFileType, TSelectedElement } from "@models/file";
 	// import { useCategoryStore } from "@/stores";
 	// import { ICategory } from "@models/index";

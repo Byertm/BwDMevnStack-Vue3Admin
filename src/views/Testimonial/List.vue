@@ -93,8 +93,6 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
-	import { defineAsyncComponent } from "vue";
 	import { useTestimonialStore } from "@stores/testimonial.store";
 	import { ITestimonial } from "@models/index";
 	import toast from "@utils/toast";

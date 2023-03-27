@@ -111,8 +111,6 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
-	import { defineAsyncComponent } from "vue";
 	import { useSkillStore } from "@stores/skill.store";
 	import { ISkill } from "@models/index";
 	import toast from "@utils/toast";

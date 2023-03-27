@@ -101,8 +101,6 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
-	import { defineAsyncComponent } from "vue";
 	import { useExperienceStore } from "@stores/experience.store";
 	import { IExperience } from "@models/index";
 	import toast from "@utils/toast";

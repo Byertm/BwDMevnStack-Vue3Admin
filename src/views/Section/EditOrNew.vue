@@ -26,9 +26,6 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
-	import { Ref, ref, toRefs } from "vue";
-	import { watch } from "vue";
 	import { FormKitOptionsList } from "@formkit/inputs";
 	import { ESectionType } from "@models/section";
 	import { useSectionStore } from "@/stores";

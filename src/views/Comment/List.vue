@@ -116,8 +116,6 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
-	import { defineAsyncComponent, Ref, ref, watch } from "vue";
 	import { useCommentStore, usePostStore } from "@/stores";
 	import { IComment, IPost } from "@models/index";
 	import toast from "@utils/toast";

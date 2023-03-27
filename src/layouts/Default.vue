@@ -11,7 +11,6 @@
 </template>
 
 <script setup lang="ts">
-	import { storeToRefs } from "pinia";
 	import getSidebarItems from "@/data/sidebar-nav-items";
 	import { useAuthStore, useUserStore } from "@/stores";
 	import Header from "@components/layout/Default/Header.vue";
