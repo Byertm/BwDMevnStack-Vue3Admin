@@ -40,7 +40,7 @@
 	import { FormKitOptionsList } from "@formkit/inputs";
 	import { useCategoryStore, usePostStore, useTagStore, useUserStore } from "@/stores";
 	import { IPostRequest } from "@models/post";
-	// import { IPost } from "@models/index";
+	import { IPost } from "@models/index";
 	import router from "@router/index";
 	import toast from "@utils/toast";
 
@@ -49,12 +49,12 @@
 	const tagStore = useTagStore();
 	const userStore = useUserStore();
 
-	const formData = ref({});
+	const formData: Ref<Partial<IPost>> = ref({});
 	const categoryList: Ref<FormKitOptionsList> = ref([]);
 	const tagList: Ref<FormKitOptionsList> = ref([]);
 	const userList: Ref<FormKitOptionsList> = ref([]);
 
-	const { post, isPost, isEditingPost, isErrorPost, isEmptyPost, mainPosts, isMainPosts } = storeToRefs(postStore);
+	const { post, getPost, isPost, isEditingPost, isErrorPost, isEmptyPost, mainPosts, isMainPosts } = storeToRefs(postStore);
 	const { getCategories, isCategories } = storeToRefs(categoryStore);
 	const { getTags, isTags } = storeToRefs(tagStore);
 	const { getUsers, isUsers } = storeToRefs(userStore);
@@ -104,26 +104,28 @@
 		setUserList();
 	};
 
+	const setPost = () => {
+		if (isEditingPost.value && isPost.value)
+			formData.value = {
+				title: getPost.value?.title,
+				preTitle: getPost.value?.preTitle,
+				content: getPost.value?.content,
+				imageUrl: getPost.value?.imageUrl,
+				author: getPost.value?.author || null,
+				category: getPost.value?.category || null,
+				tags: getPost.value?.tags || [],
+				isActive: getPost.value?.isActive
+			};
+		else setInitialData();
+	};
+
 	watch([() => getCategories.value, () => isCategories.value], () => setCategoryList());
 
 	watch([() => getTags.value, () => isTags.value], () => setTagList());
 
 	watch([() => getUsers.value, () => isUsers.value], () => setUserList());
 
-	watch([() => post.value.data?.id, () => isEditingPost.value], () => {
-		if (isEditingPost.value && isPost.value)
-			formData.value = {
-				title: post.value.data?.title,
-				preTitle: post.value.data?.preTitle,
-				content: post.value.data?.content,
-				imageUrl: post.value.data?.imageUrl,
-				author: post.value.data?.author || null,
-				category: post.value.data?.category || null,
-				tags: post.value.data?.tags || [],
-				isActive: post.value.data?.isActive
-			};
-		else setInitialData();
-	});
+	watch([() => getPost.value?.id, () => isEditingPost.value], () => setPost());
 
 	// postStore.getAllTopPosts();
 	categoryStore.getAll();
@@ -131,10 +133,10 @@
 	userStore.getAll();
 
 	const editPost = (editedPost: Partial<IPostRequest>) => {
-		if (isPost.value && post.value.data)
+		if (isPost.value && getPost.value)
 			return postStore
 				.updatePost({
-					...post.value.data,
+					...getPost.value,
 					title: editedPost.title,
 					preTitle: editedPost.preTitle,
 					content: editedPost.content,

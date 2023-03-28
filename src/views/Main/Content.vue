@@ -90,7 +90,7 @@
 								<tr v-for="(value, key) in userData" :key="key">
 									<td class="uk-width-1-5">{{ key }}</td>
 									<td class="uk-width-3-5">
-										<span class="json">{{ key === "createdAt" || key === "updatedAt" ? $formatDate.format(value) : value }}</span>
+										<span class="json">{{ (key === "createdAt" || key === "updatedAt") && typeof value === "string" ? $formatDate.format(value) : value }}</span>
 										<!-- <span class="json">{{ value }}</span> -->
 									</td>
 								</tr>
@@ -220,9 +220,10 @@
 
 <script setup lang="ts">
 	import { useAuthStore, useUserStore } from "@/stores";
+	import { IUser } from "@models/user";
 	import toast from "@utils/toast";
 
-	const userData = ref({});
+	const userData: Ref<IUser> = ref({} as IUser);
 
 	const authStore = useAuthStore();
 	const { user: authUser, isLogged } = storeToRefs(authStore);
@@ -233,7 +234,7 @@
 	onMounted(async () => {
 		try {
 			await userStore.getMeData();
-			userData.value = getMe.value;
+			userData.value = { ...getMe.value } as IUser;
 		} catch (error: any) {
 			toast({ message: `<span uk-icon='icon: ban'></span> ${error.message}.`, status: "danger" });
 		}

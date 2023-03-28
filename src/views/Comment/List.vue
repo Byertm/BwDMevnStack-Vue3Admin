@@ -53,19 +53,19 @@
 										<!-- <td class="uk-width-2-5">{{ comment.postId }}</td> -->
 										<td class="uk-width-2-5">{{ comment.comment }}</td>
 										<td class="uk-width-1-5">
-											<div @click="setCommentBannedStatus(comment)">
+											<div @click="() => setCommentBannedStatus(comment)">
 												<span v-if="comment.isBanned" data-uk-icon="icon:check; ratio:1.2" class="uk-text-success uk-icon"> </span>
 												<span v-else data-uk-icon="icon:close; ratio:1.2" class="uk-text-danger uk-icon"> </span>
 											</div>
 										</td>
 										<td class="uk-width-1-5">
-											<div @click="setCommentHiddenStatus(comment)">
+											<div @click="() => setCommentHiddenStatus(comment)">
 												<span v-if="comment.isHidden" data-uk-icon="icon:check; ratio:1.2" class="uk-text-success uk-icon"> </span>
 												<span v-else data-uk-icon="icon:close; ratio:1.2" class="uk-text-danger uk-icon"> </span>
 											</div>
 										</td>
 										<td class="uk-width-1-5">
-											<div @click="setCommentStatus(comment)">
+											<div @click="() => setCommentStatus(comment)">
 												<span v-if="comment.isActive" data-uk-icon="icon:check; ratio:1.2" class="uk-text-success uk-icon"> </span>
 												<span v-else data-uk-icon="icon:close; ratio:1.2" class="uk-text-danger uk-icon"> </span>
 											</div>
@@ -80,9 +80,9 @@
 													title="Düzenle"
 													data-uk-tooltip
 													data-uk-icon="icon: pencil"
-													@click="editComment(comment.id)"
+													@click="() => editComment(comment.id)"
 													class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
-												<a @click="deleteComment(comment.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
+												<a @click="() => deleteComment(comment.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
 											</div>
 										</td>
 									</tr>
@@ -100,7 +100,7 @@
 			<button type="button" uk-close class="uk-modal-close-default"></button>
 
 			<div class="uk-modal-header">
-				<h2 class="uk-modal-title">Add Comment</h2>
+				<h2 class="uk-modal-title">{{ isEditingComment ? "Edit" : "Add" }} Comment</h2>
 			</div>
 
 			<div class="uk-modal-body">
@@ -128,12 +128,12 @@
 	const postStore = usePostStore();
 	const commentStore = useCommentStore();
 	const { getPosts, isPosts } = storeToRefs(postStore);
-	const { isComments, isEmptyComments, getComments: categories, isErrorComments, getCommentsErrors: errors } = storeToRefs(commentStore);
-	// commentStore.getAll();
+	const { isComments, isEditingComment, isEmptyComments, getComments: categories, isErrorComments, getCommentsErrors: errors } = storeToRefs(commentStore);
+	commentStore.getAll();
 
 	if (!isPosts.value) postStore.getAll();
 
-	const setPostList = () => (postList.value = [...getPosts.value]);
+	const setPostList = () => (postList.value = getPosts.value ? [...getPosts.value] : []);
 
 	const handlePostChange = (post: IPost) => alert(JSON.stringify(post));
 

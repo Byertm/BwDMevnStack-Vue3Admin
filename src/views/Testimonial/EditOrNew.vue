@@ -31,24 +31,26 @@
 
 	const testimonialStore = useTestimonialStore();
 
-	const formData = ref();
+	const formData: Ref<Partial<ITestimonial>> = ref({});
 
-	const { testimonial, isTestimonial, isEditingTestimonial, isErrorTestimonial, isEmptyTestimonial } = storeToRefs(testimonialStore);
+	const { testimonial, getTestimonial, isTestimonial, isEditingTestimonial, isErrorTestimonial, isEmptyTestimonial } = storeToRefs(testimonialStore);
 	const { loading, errors } = toRefs(testimonial.value);
 
 	const setInitialData = () => {
 		formData.value = {};
 	};
 
-	watch([() => testimonial.value.data?.id, () => isEditingTestimonial.value], () => {
-		if (isEditingTestimonial.value && isTestimonial.value) formData.value = { title: testimonial.value.data?.title, content: testimonial.value.data?.content, isActive: testimonial.value.data?.isActive };
+	const setTestimonial = () => {
+		if (isEditingTestimonial.value && isTestimonial.value) formData.value = { title: getTestimonial.value?.title, content: getTestimonial.value?.content, isActive: getTestimonial.value?.isActive };
 		else setInitialData();
-	});
+	};
+
+	watch([() => getTestimonial.value?.id, () => isEditingTestimonial.value], () => setTestimonial());
 
 	const editTestimonial = (editedTestimonial: Partial<ITestimonial>) => {
-		if (isTestimonial.value && testimonial.value.data)
+		if (isTestimonial.value && getTestimonial.value)
 			return testimonialStore
-				.updateTestimonial({ ...testimonial.value.data, title: editedTestimonial.title, content: testimonial.value.data?.content, isActive: editedTestimonial.isActive })
+				.updateTestimonial({ ...getTestimonial.value, title: editedTestimonial.title, content: editedTestimonial.content, isActive: editedTestimonial.isActive })
 				.then(() => {
 					router.push("/testimonial");
 					toast({ message: `<span uk-icon='icon: check'></span> Başarıyla yeni testimonial eklediniz!`, status: "success" });

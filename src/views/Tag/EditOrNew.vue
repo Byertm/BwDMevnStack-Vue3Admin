@@ -31,30 +31,32 @@
 
 	const tagStore = useTagStore();
 
-	const formData = ref();
+	const formData: Ref<Partial<ITag>> = ref({});
 
-	const { tag, isTag, isEditingTag, isErrorTag, isEmptyTag } = storeToRefs(tagStore);
+	const { tag, getTag, isTag, isEditingTag, isErrorTag, isEmptyTag } = storeToRefs(tagStore);
 	const { loading, errors } = toRefs(tag.value);
 
 	const setInitialData = () => {
 		formData.value = {};
 	};
 
-	watch([() => tag.value.data?.id, () => isEditingTag.value], () => {
+	const setTag = () => {
 		if (isEditingTag.value && isTag.value)
 			formData.value = {
-				name: tag.value.data?.name,
-				url: tag.value.data?.url,
-				isActive: tag.value.data?.isActive
+				name: getTag.value?.name,
+				url: getTag.value?.url,
+				isActive: getTag.value?.isActive
 			};
 		else setInitialData();
-	});
+	};
+
+	watch([() => getTag.value?.id, () => isEditingTag.value], () => setTag());
 
 	const editTag = (editedTag: Partial<ITag>) => {
-		if (isTag.value && tag.value.data)
+		if (isTag.value && getTag.value)
 			return tagStore
 				.updateTag({
-					...tag.value.data,
+					...getTag.value,
 					name: editedTag.name,
 					url: editedTag.url,
 					isActive: editedTag.isActive

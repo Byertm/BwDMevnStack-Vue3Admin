@@ -42,7 +42,7 @@
 										<td class="uk-width-2-5">{{ testimonial.title }}</td>
 										<td class="uk-width-2-5">{{ testimonial.content }}</td>
 										<td class="uk-width-1-5">
-											<div @click="setTestimonialStatus(testimonial)">
+											<div @click="() => setTestimonialStatus(testimonial)">
 												<span v-if="testimonial.isActive" data-uk-icon="icon:check; ratio:1.2" class="uk-text-success uk-icon"> </span>
 												<span v-else data-uk-icon="icon:close; ratio:1.2" class="uk-text-danger uk-icon"> </span>
 											</div>
@@ -57,9 +57,9 @@
 													title="Düzenle"
 													data-uk-tooltip
 													data-uk-icon="icon: pencil"
-													@click="editTestimonial(testimonial.id)"
+													@click="() => editTestimonial(testimonial.id)"
 													class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
-												<a @click="deleteTestimonial(testimonial.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
+												<a @click="() => deleteTestimonial(testimonial.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
 											</div>
 										</td>
 									</tr>
@@ -77,7 +77,7 @@
 			<button type="button" uk-close class="uk-modal-close-default"></button>
 
 			<div class="uk-modal-header">
-				<h2 class="uk-modal-title">Add Testimonial</h2>
+				<h2 class="uk-modal-title">{{ isEditingTestimonial ? "Edit" : "Add" }} Testimonial</h2>
 			</div>
 
 			<div class="uk-modal-body">
@@ -100,7 +100,7 @@
 	const NewOrEdit = defineAsyncComponent({ loader: () => import("@views/Testimonial/EditOrNew.vue") });
 
 	const testimonialStore = useTestimonialStore();
-	const { isTestimonials, isEmptyTestimonials, getTestimonials: testimonials, isErrorTestimonials, getTestimonialsErrors: errors } = storeToRefs(testimonialStore);
+	const { isTestimonials, isEditingTestimonial, isEmptyTestimonials, getTestimonials: testimonials, isErrorTestimonials, getTestimonialsErrors: errors } = storeToRefs(testimonialStore);
 	testimonialStore.getAll();
 
 	const setTestimonialStatus = async (testimonial: Partial<ITestimonial>) => {

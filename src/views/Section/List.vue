@@ -45,7 +45,7 @@
 										<td class="uk-width-2-5">{{ section.type }}</td>
 										<!-- <td class="uk-width-2-5">{{ section.subSections }}</td> -->
 										<td class="uk-width-1-5">
-											<div @click="setSectionStatus(section)">
+											<div @click="() => setSectionStatus(section)">
 												<span v-if="section.isActive" data-uk-icon="icon:check; ratio:1.2" class="uk-text-success uk-icon"> </span>
 												<span v-else data-uk-icon="icon:close; ratio:1.2" class="uk-text-danger uk-icon"> </span>
 											</div>
@@ -60,9 +60,9 @@
 													title="Düzenle"
 													data-uk-tooltip
 													data-uk-icon="icon: pencil"
-													@click="editSection(section.id)"
+													@click="() => editSection(section.id)"
 													class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
-												<a @click="deleteSection(section.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
+												<a @click="() => deleteSection(section.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
 											</div>
 										</td>
 									</tr>
@@ -80,7 +80,7 @@
 			<button type="button" uk-close class="uk-modal-close-default"></button>
 
 			<div class="uk-modal-header">
-				<h2 class="uk-modal-title">Add Section</h2>
+				<h2 class="uk-modal-title">{{ isEditingSection ? "Edit" : "Add" }} Section</h2>
 			</div>
 
 			<div class="uk-modal-body">
@@ -103,7 +103,7 @@
 	const NewOrEdit = defineAsyncComponent({ loader: () => import("@views/Section/EditOrNew.vue") });
 
 	const sectionStore = useSectionStore();
-	const { isSections, isEmptySections, getSections: sections, isErrorSections, getSectionsErrors: errors } = storeToRefs(sectionStore);
+	const { isSections, isEditingSection, isEmptySections, getSections: sections, isErrorSections, getSectionsErrors: errors } = storeToRefs(sectionStore);
 	sectionStore.getAll();
 
 	const setSectionStatus = async (section: Partial<ISection>) => {

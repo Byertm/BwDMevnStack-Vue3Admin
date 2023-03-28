@@ -37,34 +37,36 @@
 
 	const experienceStore = useExperienceStore();
 
-	const formData = ref();
+	const formData: Ref<Partial<IExperience>> = ref({});
 
-	const { experience, isExperience, isEditingExperience, isErrorExperience, isEmptyExperience } = storeToRefs(experienceStore);
+	const { experience, getExperience, isExperience, isEditingExperience, isErrorExperience, isEmptyExperience } = storeToRefs(experienceStore);
 	const { loading, errors } = toRefs(experience.value);
 
 	const setInitialData = () => {
 		formData.value = {};
 	};
 
-	watch([() => experience.value.data?.id, () => isEditingExperience.value], () => {
+	const setExperience = () => {
 		if (isEditingExperience.value && isExperience.value)
 			formData.value = {
-				title: experience.value.data?.title,
-				company: experience.value.data?.company,
-				section: experience.value.data?.section,
-				description: experience.value.data?.description,
-				startDate: formatDate.formatFK(experience.value.data?.startDate), //experience.value.data?.startDate,
-				finishDate: formatDate.formatFK(experience.value.data?.finishDate), // experience.value.data?.finishDate,
-				isActive: experience.value.data?.isActive
+				title: getExperience.value?.title,
+				company: getExperience.value?.company,
+				section: getExperience.value?.section,
+				description: getExperience.value?.description,
+				startDate: formatDate.formatFK(getExperience.value?.startDate), //getExperience.value?.startDate,
+				finishDate: formatDate.formatFK(getExperience.value?.finishDate), // getExperience.value?.finishDate,
+				isActive: getExperience.value?.isActive
 			};
 		else setInitialData();
-	});
+	};
+
+	watch([() => getExperience.value?.id, () => isEditingExperience.value], () => setExperience());
 
 	const editExperience = (editedExperience: Partial<IExperience>) => {
-		if (isExperience.value && experience.value.data)
+		if (isExperience.value && getExperience.value)
 			return experienceStore
 				.updateExperience({
-					...experience.value.data,
+					...getExperience.value,
 					title: editedExperience.title,
 					company: editedExperience.company,
 					section: editedExperience.section,

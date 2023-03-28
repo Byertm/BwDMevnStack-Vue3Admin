@@ -41,27 +41,30 @@
 
 	const sectionStore = useSectionStore();
 
-	const formData = ref();
+	const formData: Ref<Partial<ISection>> = ref({});
 
-	const { section, isSection, isEditingSection, isErrorSection, isEmptySection } = storeToRefs(sectionStore);
+	const { getSection, section, isSection, isEditingSection, isErrorSection, isEmptySection } = storeToRefs(sectionStore);
 	const { loading, errors } = toRefs(section.value);
 
 	const setInitialData = () => {
 		formData.value = {};
 	};
 
+	const setSection = () => {
+		if (isSection.value && isEditingSection.value)
+			// formData.value = { key: getSection.value?.key, name: getSection.value?.name, type: getSection.value?.type, subSections: getSection.value?.subSections, isActive: getSection.value?.isActive };
+			formData.value = { ...getSection.value };
+		else setInitialData();
+	};
+
 	sectionTypes.value = [{ label: "Üst Kategori", value: null, attrs: { disabled: true } }, ...Object.entries(SectionTypes).map(([key, value]) => ({ value: value, label: key, attrs: { disabled: false } }))];
 
-	watch([() => section.value.data?.id, () => isEditingSection.value], () => {
-		if (isEditingSection.value && isSection.value)
-			formData.value = { key: section.value.data?.key, name: section.value.data?.name, type: section.value.data?.type, subSections: section.value.data?.subSections, isActive: section.value.data?.isActive };
-		else setInitialData();
-	});
+	watch([() => getSection.value, () => isEditingSection.value], () => setSection());
 
 	const editSection = (editedSection: Partial<ISection>) => {
-		if (isSection.value && section.value.data)
+		if (isSection.value && getSection.value)
 			return sectionStore
-				.updateSection({ ...section.value.data, key: editedSection.key, name: editedSection.name, type: editedSection.type, subSections: editedSection.subSections, isActive: editedSection.isActive })
+				.updateSection({ ...getSection.value, key: editedSection.key, name: editedSection.name, type: editedSection.type, subSections: editedSection.subSections, isActive: editedSection.isActive })
 				.then(() => {
 					router.push("/section");
 					toast({ message: `<span uk-icon='icon: check'></span> Başarıyla yeni section eklediniz!`, status: "success" });

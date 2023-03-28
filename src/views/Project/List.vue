@@ -54,7 +54,7 @@
 										<td class="uk-width-2-5">{{ $formatDate.format(project.startDate) || null }}</td>
 										<td class="uk-width-2-5">{{ $formatDate.format(project.finishDate) || null }}</td>
 										<td class="uk-width-1-5">
-											<div @click="setProjectStatus(project)">
+											<div @click="() => setProjectStatus(project)">
 												<span v-if="project.isActive" data-uk-icon="icon:check; ratio:1.2" class="uk-text-success uk-icon"> </span>
 												<span v-else data-uk-icon="icon:close; ratio:1.2" class="uk-text-danger uk-icon"> </span>
 											</div>
@@ -69,9 +69,9 @@
 													title="Düzenle"
 													data-uk-tooltip
 													data-uk-icon="icon: pencil"
-													@click="editProject(project.id)"
+													@click="() => editProject(project.id)"
 													class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
-												<a @click="deleteProject(project.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
+												<a @click="() => deleteProject(project.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
 											</div>
 										</td>
 									</tr>

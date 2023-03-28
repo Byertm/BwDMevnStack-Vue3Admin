@@ -37,34 +37,36 @@
 
 	const educationStore = useEducationStore();
 
-	const formData = ref();
+	const formData: Ref<Partial<IEducation>> = ref({});
 
-	const { education, isEducation, isEditingEducation, isErrorEducation, isEmptyEducation } = storeToRefs(educationStore);
+	const { education, getEducation, isEducation, isEditingEducation, isErrorEducation, isEmptyEducation } = storeToRefs(educationStore);
 	const { loading, errors } = toRefs(education.value);
 
 	const setInitialData = () => {
 		formData.value = {};
 	};
 
-	watch([() => education.value.data?.id, () => isEditingEducation.value], () => {
+	const setEducation = () => {
 		if (isEditingEducation.value && isEducation.value)
 			formData.value = {
-				title: education.value.data?.title,
-				scholl: education.value.data?.scholl,
-				section: education.value.data?.section,
-				description: education.value.data?.description,
-				startDate: formatDate.formatFK(education.value.data?.startDate), //education.value.data?.startDate,
-				finishDate: formatDate.formatFK(education.value.data?.finishDate), // education.value.data?.finishDate,
-				isActive: education.value.data?.isActive
+				title: getEducation.value?.title,
+				scholl: getEducation.value?.scholl,
+				section: getEducation.value?.section,
+				description: getEducation.value?.description,
+				startDate: formatDate.formatFK(getEducation.value?.startDate), //getEducation.value?.startDate,
+				finishDate: formatDate.formatFK(getEducation.value?.finishDate), // getEducation.value?.finishDate,
+				isActive: getEducation.value?.isActive
 			};
 		else setInitialData();
-	});
+	};
+
+	watch([() => getEducation.value?.id, () => isEditingEducation.value], () => setEducation());
 
 	const editEducation = (editedEducation: Partial<IEducation>) => {
-		if (isEducation.value && education.value.data)
+		if (isEducation.value && getEducation.value)
 			return educationStore
 				.updateEducation({
-					...education.value.data,
+					...getEducation.value,
 					title: editedEducation.title,
 					scholl: editedEducation.scholl,
 					section: editedEducation.section,

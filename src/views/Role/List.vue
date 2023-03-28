@@ -40,7 +40,7 @@
 									<tr v-for="role in roles" :key="role.id">
 										<td class="uk-width-2-5">{{ role.name }}</td>
 										<td class="uk-width-1-5">
-											<div @click="setRoleStatus(role)">
+											<div @click="() => setRoleStatus(role)">
 												<span v-if="role.isActive" data-uk-icon="icon:check; ratio:1.2" class="uk-text-success uk-icon"> </span>
 												<span v-else data-uk-icon="icon:close; ratio:1.2" class="uk-text-danger uk-icon"> </span>
 											</div>
@@ -49,8 +49,15 @@
 										<td class="uk-width-1-5">{{ $formatDate.format(role.updatedAt) || null }}</td>
 										<td class="uk-width-1-5">
 											<div class="uk-button-group">
-												<a href="#modalRole" uk-toggle title="Düzenle" data-uk-tooltip data-uk-icon="icon: pencil" @click="editRole(role.id)" class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
-												<a @click="deleteRole(role.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
+												<a
+													href="#modalRole"
+													uk-toggle
+													title="Düzenle"
+													data-uk-tooltip
+													data-uk-icon="icon: pencil"
+													@click="() => editRole(role.id)"
+													class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
+												<a @click="() => deleteRole(role.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
 											</div>
 										</td>
 									</tr>
@@ -68,7 +75,7 @@
 			<button type="button" uk-close class="uk-modal-close-default"></button>
 
 			<div class="uk-modal-header">
-				<h2 class="uk-modal-title">Add Role</h2>
+				<h2 class="uk-modal-title">{{ isEditingRole ? "Edit" : "Add" }} Role</h2>
 			</div>
 
 			<div class="uk-modal-body">
@@ -91,7 +98,7 @@
 	const NewOrEdit = defineAsyncComponent({ loader: () => import("@views/Role/EditOrNew.vue") });
 
 	const roleStore = useRoleStore();
-	const { isRoles, isEmptyRoles, getRoles: roles, isErrorRoles, getRolesErrors: errors } = storeToRefs(roleStore);
+	const { isRoles, isEditingRole, isEmptyRoles, getRoles: roles, isErrorRoles, getRolesErrors: errors } = storeToRefs(roleStore);
 	roleStore.getAll();
 
 	const setRoleStatus = async (role: Partial<IRole>) => {

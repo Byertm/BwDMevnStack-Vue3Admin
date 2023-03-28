@@ -35,8 +35,8 @@
 										<th>User EMail</th>
 										<th>User Roles</th>
 										<th>Active</th>
-										<th>Created Date</th>
-										<th>Updated Date</th>
+										<!-- <th>Created Date</th> -->
+										<!-- <th>Updated Date</th> -->
 										<th></th>
 									</tr>
 								</thead>
@@ -48,17 +48,24 @@
 										<td class="uk-width-2-5">{{ user.email }}</td>
 										<td class="uk-width-2-5">{{ getUserRoles(user.roles) }}</td>
 										<td class="uk-width-1-5">
-											<div @click="setUserStatus(user)">
+											<div @click="() => setUserStatus(user)">
 												<span v-if="user.isActive" data-uk-icon="icon:check; ratio:1.2" class="uk-text-success uk-icon"> </span>
 												<span v-else data-uk-icon="icon:close; ratio:1.2" class="uk-text-danger uk-icon"> </span>
 											</div>
 										</td>
-										<td class="uk-width-1-5">{{ $formatDate.format(user.createdAt) || null }}</td>
-										<td class="uk-width-1-5">{{ $formatDate.format(user.updatedAt) || null }}</td>
+										<!-- <td class="uk-width-1-5">{{ $formatDate.format(user.createdAt) || null }}</td> -->
+										<!-- <td class="uk-width-1-5">{{ $formatDate.format(user.updatedAt) || null }}</td> -->
 										<td class="uk-width-1-5">
 											<div class="uk-button-group">
-												<a href="#modalUser" uk-toggle title="Düzenle" data-uk-tooltip data-uk-icon="icon: pencil" @click="editUser(user.id)" class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
-												<a @click="deleteUser(user.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
+												<a
+													href="#modalUser"
+													uk-toggle
+													title="Düzenle"
+													data-uk-tooltip
+													data-uk-icon="icon: pencil"
+													@click="() => editUser(user.id)"
+													class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
+												<a @click="() => deleteUser(user.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
 											</div>
 										</td>
 									</tr>
@@ -76,7 +83,7 @@
 			<button type="button" uk-close class="uk-modal-close-default"></button>
 
 			<div class="uk-modal-header">
-				<h2 class="uk-modal-title">Add User</h2>
+				<h2 class="uk-modal-title">{{ isEditingUser ? "Edit" : "Add" }} User</h2>
 			</div>
 
 			<div class="uk-modal-body">
@@ -102,7 +109,7 @@
 
 	const userStore = useUserStore();
 	const roleStore = useRoleStore();
-	const { isUsers, isEmptyUsers, getUsers: users, isErrorUsers, getUsersErrors: errors } = storeToRefs(userStore);
+	const { isUsers, isEditingUser, isEmptyUsers, getUsers: users, isErrorUsers, getUsersErrors: errors } = storeToRefs(userStore);
 	const { isRoles, getRoles: roles } = storeToRefs(roleStore);
 	userStore.getAll();
 
@@ -114,8 +121,8 @@
 		return !!userRoles && !!userRoles?.length ? userRoles.map((role) => role.name).join(", ") || "Rol Bulunamadı" : "Rol Bulunamadı";
 	};
 
-	const setUserStatus = async (post: Partial<IUser>) => {
-		await userStore.updateUser({ ...post, isActive: !post.isActive });
+	const setUserStatus = async (user: Partial<IUser>) => {
+		await userStore.updateUser({ ...user, isActive: !user.isActive });
 	};
 
 	const newUser = async () => {

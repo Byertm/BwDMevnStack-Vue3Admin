@@ -47,7 +47,7 @@
 										<td class="uk-width-2-5"><img :src="getApiImageByImageUrl(category.url)" :alt="category.name" crossorigin="anonymous" width="50" height="50" class="uk-object-cover" /></td>
 										<td class="uk-width-2-5">{{ getCategoryName(category.parentId) }}</td>
 										<td class="uk-width-1-5">
-											<div @click="setCategoryStatus(category)">
+											<div @click="() => setCategoryStatus(category)">
 												<span v-if="category.isActive" data-uk-icon="icon:check; ratio:1.2" class="uk-text-success uk-icon"> </span>
 												<span v-else data-uk-icon="icon:close; ratio:1.2" class="uk-text-danger uk-icon"> </span>
 											</div>
@@ -62,9 +62,9 @@
 													title="Düzenle"
 													data-uk-tooltip
 													data-uk-icon="icon: pencil"
-													@click="editCategory(category.id)"
+													@click="() => editCategory(category.id)"
 													class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
-												<a @click="deleteCategory(category.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
+												<a @click="() => deleteCategory(category.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
 											</div>
 										</td>
 									</tr>

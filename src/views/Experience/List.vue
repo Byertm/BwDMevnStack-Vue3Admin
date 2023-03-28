@@ -50,7 +50,7 @@
 										<td class="uk-width-2-5">{{ $formatDate.format(experience.startDate) || null }}</td>
 										<td class="uk-width-2-5">{{ $formatDate.format(experience.finishDate) || null }}</td>
 										<td class="uk-width-1-5">
-											<div @click="setExperienceStatus(experience)">
+											<div @click="() => setExperienceStatus(experience)">
 												<span v-if="experience.isActive" data-uk-icon="icon:check; ratio:1.2" class="uk-text-success uk-icon"> </span>
 												<span v-else data-uk-icon="icon:close; ratio:1.2" class="uk-text-danger uk-icon"> </span>
 											</div>
@@ -65,9 +65,9 @@
 													title="Düzenle"
 													data-uk-tooltip
 													data-uk-icon="icon: pencil"
-													@click="editExperience(experience.id)"
+													@click="() => editExperience(experience.id)"
 													class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
-												<a @click="deleteExperience(experience.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
+												<a @click="() => deleteExperience(experience.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
 											</div>
 										</td>
 									</tr>
@@ -85,7 +85,7 @@
 			<button type="button" uk-close class="uk-modal-close-default"></button>
 
 			<div class="uk-modal-header">
-				<h2 class="uk-modal-title">Add Experience</h2>
+				<h2 class="uk-modal-title">{{ isEditingExperience ? "Edit" : "Add" }} Experience</h2>
 			</div>
 
 			<div class="uk-modal-body">
@@ -108,7 +108,7 @@
 	const NewOrEdit = defineAsyncComponent({ loader: () => import("@views/Experience/EditOrNew.vue") });
 
 	const experienceStore = useExperienceStore();
-	const { isExperiences, isEmptyExperiences, getExperiences: experiences, isErrorExperiences, getExperiencesErrors: errors } = storeToRefs(experienceStore);
+	const { isExperiences, isEditingExperience, isEmptyExperiences, getExperiences: experiences, isErrorExperiences, getExperiencesErrors: errors } = storeToRefs(experienceStore);
 	experienceStore.getAll();
 
 	const setExperienceStatus = async (experience: Partial<IExperience>) => {

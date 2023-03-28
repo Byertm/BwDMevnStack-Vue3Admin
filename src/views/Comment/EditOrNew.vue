@@ -35,47 +35,43 @@
 	const commentStore = useCommentStore();
 	const postStore = usePostStore();
 
-	const formData = ref();
+	const formData: Ref<Partial<IComment>> = ref({});
 	const postList: Ref<FormKitOptionsList> = ref([]);
 
-	const { comment, isComment, isEditingComment, isErrorComment, isEmptyComment } = storeToRefs(commentStore);
+	const { comment, getComment, isComment, isEditingComment, isErrorComment, isEmptyComment } = storeToRefs(commentStore);
 	const { getPosts, isPosts } = storeToRefs(postStore);
 	const { loading, errors } = toRefs(comment.value);
 
 	postStore.getAll();
 
-	const setPostList = () => {
-		postList.value = [
-			...getPosts.value.map((post) => {
-				return { label: post.title, value: post.id, attrs: { disabled: false } };
-			})
-		];
-	};
+	const setPostList = () => (postList.value = getPosts.value ? [...getPosts.value.map((post) => ({ label: post.title, value: post.id, attrs: { disabled: false } }))] : []);
 
 	const setInitialData = () => {
 		formData.value = {};
 		setPostList();
 	};
 
-	watch([() => getPosts.value, () => isPosts.value], () => setPostList());
-
-	watch([() => comment.value.data?.id, () => isEditingComment.value], () => {
+	const setComment = () => {
 		if (isEditingComment.value && isComment.value)
 			formData.value = {
-				postId: comment.value.data?.postId,
-				comment: comment.value.data?.comment,
-				isBanned: comment.value.data?.isBanned,
-				isHidden: comment.value.data?.isHidden,
-				isActive: comment.value.data?.isActive
+				postId: getComment.value?.postId,
+				comment: getComment.value?.comment,
+				isBanned: getComment.value?.isBanned,
+				isHidden: getComment.value?.isHidden,
+				isActive: getComment.value?.isActive
 			};
 		else setInitialData();
-	});
+	};
+
+	watch([() => getPosts.value, () => isPosts.value], () => setPostList());
+
+	watch([() => getComment.value?.id, () => isEditingComment.value], () => setComment());
 
 	const editComment = (editedComment: Partial<IComment>) => {
-		if (isComment.value && comment.value.data)
+		if (isComment.value && getComment.value)
 			return commentStore
 				.updateComment({
-					...comment.value.data,
+					...getComment.value,
 					comment: editedComment.comment,
 					isBanned: editedComment.isBanned,
 					isHidden: editedComment.isHidden,

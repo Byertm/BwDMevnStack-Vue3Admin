@@ -35,18 +35,18 @@
 	const roleStore = useRoleStore();
 	const userStore = useUserStore();
 
-	const formData = ref();
+	const formData: Ref<Partial<IUser>> = ref({});
 	const roleList: Ref<FormKitOptionsList> = ref([]);
 
 	const { getRoles, isRoles } = storeToRefs(roleStore);
-	const { user, isUser, isEditingUser, isErrorUser, isEmptyUser } = storeToRefs(userStore);
+	const { user, getUser, isUser, isEditingUser, isErrorUser, isEmptyUser } = storeToRefs(userStore);
 	const { loading, errors } = toRefs(user.value);
 
 	const setRoleList = () => {
 		if (getRoles.value)
 			roleList.value = [
 				...getRoles?.value?.map((role) => {
-					return { label: role.name, value: role.id, attrs: { disabled: false } };
+					return { label: role.name, value: { id: role.id, name: role.name }, attrs: { disabled: false } };
 				})
 			];
 	};
@@ -57,29 +57,31 @@
 		setRoleList();
 	};
 
+	const setUser = () => {
+		if (isEditingUser.value && isUser.value)
+			formData.value = {
+				first_name: getUser.value?.first_name,
+				last_name: getUser.value?.last_name,
+				email: getUser.value?.email,
+				roles: getUser.value?.roles,
+				isActive: getUser.value?.isActive
+			};
+		else setInitialData();
+	};
+
 	setRoleList();
 
 	watch([() => getRoles.value, () => isRoles.value], () => setRoleList());
 
-	watch([() => user.value.data?.id, () => isEditingUser.value], () => {
-		if (isEditingUser.value && isUser.value)
-			formData.value = {
-				first_name: user.value.data?.first_name,
-				last_name: user.value.data?.last_name,
-				email: user.value.data?.email,
-				roles: user.value.data?.roles,
-				isActive: user.value.data?.isActive
-			};
-		else setInitialData();
-	});
+	watch([() => getUser.value?.id, () => isEditingUser.value], () => setUser());
 
-	roleStore.getAll();
+	if (!isRoles.value) roleStore.getAll();
 
 	const editUser = (editedUser: Partial<IUser>) => {
-		if (isUser.value && user.value.data)
+		if (isUser.value && getUser.value)
 			return userStore
 				.updateUser({
-					...user.value.data,
+					...getUser.value,
 					first_name: editedUser.first_name,
 					last_name: editedUser.last_name,
 					email: editedUser.email,

@@ -44,7 +44,7 @@
 										<td class="uk-width-2-5">{{ tag.slug }}</td>
 										<td class="uk-width-2-5">{{ tag.url }}</td>
 										<td class="uk-width-1-5">
-											<div @click="setTagStatus(tag)">
+											<div @click="() => setTagStatus(tag)">
 												<span v-if="tag.isActive" data-uk-icon="icon:check; ratio:1.2" class="uk-text-success uk-icon"> </span>
 												<span v-else data-uk-icon="icon:close; ratio:1.2" class="uk-text-danger uk-icon"> </span>
 											</div>
@@ -53,8 +53,8 @@
 										<td class="uk-width-1-5">{{ $formatDate.format(tag.updatedAt) || null }}</td>
 										<td class="uk-width-1-5">
 											<div class="uk-button-group">
-												<a href="#modalTag" uk-toggle title="Düzenle" data-uk-tooltip data-uk-icon="icon: pencil" @click="editTag(tag.id)" class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
-												<a @click="deleteTag(tag.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
+												<a href="#modalTag" uk-toggle title="Düzenle" data-uk-tooltip data-uk-icon="icon: pencil" @click="() => editTag(tag.id)" class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
+												<a @click="() => deleteTag(tag.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
 											</div>
 										</td>
 									</tr>
@@ -72,7 +72,7 @@
 			<button type="button" uk-close class="uk-modal-close-default"></button>
 
 			<div class="uk-modal-header">
-				<h2 class="uk-modal-title">Add Tag</h2>
+				<h2 class="uk-modal-title">{{ isEditingTag ? "Edit" : "Add" }} Tag</h2>
 			</div>
 
 			<div class="uk-modal-body">
@@ -95,7 +95,7 @@
 	const NewOrEdit = defineAsyncComponent({ loader: () => import("@views/Tag/EditOrNew.vue") });
 
 	const tagStore = useTagStore();
-	const { isTags, isEmptyTags, getTags: tags, isErrorTags, getTagsErrors: errors } = storeToRefs(tagStore);
+	const { isTags, isEditingTag, isEmptyTags, getTags: tags, isErrorTags, getTagsErrors: errors } = storeToRefs(tagStore);
 	tagStore.getAll();
 
 	const setTagStatus = async (tag: Partial<ITag>) => {

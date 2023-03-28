@@ -52,7 +52,7 @@
 
 						<div class="breadcrumb">
 							<template v-for="(p, i) in pwd" :key="i">
-								<span @click="findPath(i)">{{ p }} {{ i !== pwd.length - 1 ? " / " : "" }}</span>
+								<span @click="() => findPath(i)">{{ p }} {{ i !== pwd.length - 1 ? " / " : "" }}</span>
 							</template>
 						</div>
 
@@ -79,7 +79,7 @@
 						</div>
 					</div>
 
-					<div uk-grid uk-lightbox="animation: slide" @click.self="leftClick" @contextmenu.prevent="rightClick($event)" class="uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l uk-text-center">
+					<div uk-grid uk-lightbox="animation: slide" @click.self="leftClick" @contextmenu.prevent="($event) => rightClick($event)" class="uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l uk-text-center">
 						<div v-for="(file, i) in files" :key="i" @click.self="leftClick" class="files-wrapper">
 							<div @click.self="leftClick" class="uk-card uk-card-default uk-card-body uk-position-relative">
 								<template v-if="file.type === 'file'" :name="file.name" :suffix="file.suffix" :size="file.size" class="file">

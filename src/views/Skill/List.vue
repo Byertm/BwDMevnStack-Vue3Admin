@@ -45,22 +45,36 @@
 									<tr v-for="skill in skills" :key="skill.id">
 										<td class="uk-width-2-5">{{ skill.name }}</td>
 										<td class="uk-width-2-5">{{ skill.url }}</td>
-										<td class="uk-width-2-5">{{ skill.imgUrl }}</td>
+										<td class="uk-width-2-5">
+											<div v-if="skill.imgUrl" uk-lightbox="animation: slide" class="uk-card">
+												<a :href="getApiImageByImageUrl(skill.imgUrl, true)" data-attrs="crossorigin: anonymous; width: 1920; height: 1080;" crossorigin="anonymous" :data-caption="skill.name" class="uk-inline">
+													<img
+														:src="getApiImageByImageUrl(skill.imgUrl, true)"
+														:alt="skill.name"
+														data-uk-tooltip
+														:title="skill.name"
+														crossorigin="anonymous"
+														width="50"
+														height="50"
+														class="uk-border-rounded uk-object-cover" />
+												</a>
+											</div>
+										</td>
 										<td class="uk-width-2-5">{{ skill.ratio }}</td>
 										<td class="uk-width-1-5">
-											<div @click="setSkillLanguageStatus(skill)">
+											<div @click="() => setSkillLanguageStatus(skill)">
 												<span v-if="skill.isLanguage" data-uk-icon="icon:check; ratio:1.2" class="uk-text-success uk-icon"> </span>
 												<span v-else data-uk-icon="icon:close; ratio:1.2" class="uk-text-danger uk-icon"> </span>
 											</div>
 										</td>
 										<td class="uk-width-1-5">
-											<div @click="setSkillSpecialStatus(skill)">
+											<div @click="() => setSkillSpecialStatus(skill)">
 												<span v-if="skill.isSpecial" data-uk-icon="icon:check; ratio:1.2" class="uk-text-success uk-icon"> </span>
 												<span v-else data-uk-icon="icon:close; ratio:1.2" class="uk-text-danger uk-icon"> </span>
 											</div>
 										</td>
 										<td class="uk-width-1-5">
-											<div @click="setSkillStatus(skill)">
+											<div @click="() => setSkillStatus(skill)">
 												<span v-if="skill.isActive" data-uk-icon="icon:check; ratio:1.2" class="uk-text-success uk-icon"> </span>
 												<span v-else data-uk-icon="icon:close; ratio:1.2" class="uk-text-danger uk-icon"> </span>
 											</div>
@@ -75,9 +89,9 @@
 													title="Düzenle"
 													data-uk-tooltip
 													data-uk-icon="icon: pencil"
-													@click="editSkill(skill.id)"
+													@click="() => editSkill(skill.id)"
 													class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
-												<a @click="deleteSkill(skill.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
+												<a @click="() => deleteSkill(skill.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
 											</div>
 										</td>
 									</tr>
@@ -95,7 +109,7 @@
 			<button type="button" uk-close class="uk-modal-close-default"></button>
 
 			<div class="uk-modal-header">
-				<h2 class="uk-modal-title">Add Skill</h2>
+				<h2 class="uk-modal-title">{{ isEditingSkill ? "Edit" : "Add" }} Skill</h2>
 			</div>
 
 			<div class="uk-modal-body">
@@ -111,6 +125,7 @@
 </template>
 
 <script setup lang="ts">
+	import { getApiImageByImageUrl } from "@services/file.service";
 	import { useSkillStore } from "@stores/skill.store";
 	import { ISkill } from "@models/index";
 	import toast from "@utils/toast";
@@ -118,7 +133,7 @@
 	const NewOrEdit = defineAsyncComponent({ loader: () => import("@views/Skill/EditOrNew.vue") });
 
 	const skillStore = useSkillStore();
-	const { isSkills, isEmptySkills, getSkills: skills, isErrorSkills, getSkillsErrors: errors } = storeToRefs(skillStore);
+	const { isSkills, isEditingSkill, isEmptySkills, getSkills: skills, isErrorSkills, getSkillsErrors: errors } = storeToRefs(skillStore);
 	skillStore.getAll();
 
 	const setSkillStatus = async (skill: Partial<ISkill>) => {

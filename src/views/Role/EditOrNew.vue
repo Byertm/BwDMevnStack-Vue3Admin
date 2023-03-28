@@ -30,24 +30,26 @@
 
 	const roleStore = useRoleStore();
 
-	const formData = ref();
+	const formData: Ref<Partial<IRole>> = ref({});
 
-	const { role, isRole, isEditingRole, isErrorRole, isEmptyRole } = storeToRefs(roleStore);
+	const { role, getRole, isRole, isEditingRole, isErrorRole, isEmptyRole } = storeToRefs(roleStore);
 	const { loading, errors } = toRefs(role.value);
 
 	const setInitialData = () => {
 		formData.value = {};
 	};
 
-	watch([() => role.value.data?.id, () => isEditingRole.value], () => {
-		if (isEditingRole.value && isRole.value) formData.value = { name: role.value.data?.name, isActive: role.value.data?.isActive };
+	const setRole = () => {
+		if (isEditingRole.value && isRole.value) formData.value = { name: getRole.value?.name, isActive: getRole.value?.isActive };
 		else setInitialData();
-	});
+	};
+
+	watch([() => getRole.value?.id, () => isEditingRole.value], () => setRole());
 
 	const editRole = (editedRole: Partial<IRole>) => {
-		if (isRole.value && role.value.data)
+		if (isRole.value && getRole.value)
 			return roleStore
-				.updateRole({ ...role.value.data, name: editedRole.name, isActive: editedRole.isActive })
+				.updateRole({ ...getRole.value, name: editedRole.name, isActive: editedRole.isActive })
 				.then(() => {
 					router.push("/role");
 					toast({ message: `<span uk-icon='icon: check'></span> Başarıyla yeni role eklediniz!`, status: "success" });

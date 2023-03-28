@@ -15,6 +15,8 @@
 		<p>Yükleniyor...</p>
 	</div>
 
+	<template v-if="!isEditingProject || (isProject && isEditingProject)"></template>
+
 	<FormKit type="form" v-model="formData" :actions="false" @submit="formKitSubmit">
 		<FormKit type="text" label="Project Name" name="name" help="Proje adı giriniz" validation="required|length:3,50" data-validation-visibility="live" />
 		<FormKit type="we" label="Project Description" name="description" help="Proje açıklaması giriniz" validation="required|length:3,5000" data-validation-visibility="live" />
@@ -47,7 +49,7 @@
 	const formData: Ref<Partial<IProject>> = ref({});
 	const categoryList: Ref<FormKitOptionsList> = ref([]);
 
-	const { project, isProject, isEditingProject, isErrorProject, isEmptyProject } = storeToRefs(projectStore);
+	const { project, getProject, isProject, isEditingProject, isErrorProject, isEmptyProject } = storeToRefs(projectStore);
 	const { getCategories, isCategories } = storeToRefs(categoryStore);
 	const { loading, errors } = toRefs(project.value);
 
@@ -68,29 +70,31 @@
 		// setProjectCategories();
 	};
 
-	watch([() => getCategories.value, () => isCategories.value], () => setProjectCategories());
-
-	watch([() => project.value.data?.id, () => isEditingProject.value], () => {
+	const setProject = () => {
 		if (isEditingProject.value && isProject.value)
 			formData.value = {
-				name: project.value.data?.name,
-				categoryId: project.value.data?.categoryId,
-				demoPreviewUrl: project.value.data?.demoPreviewUrl,
-				deployUrl: project.value.data?.deployUrl,
-				description: project.value.data?.description,
-				startDate: formatDate.formatFK(project.value.data?.startDate),
-				finishDate: formatDate.formatFK(project.value.data?.finishDate),
-				isActive: project.value.data?.isActive,
-				imageUrl: project.value.data?.imageUrl
+				name: getProject.value?.name,
+				categoryId: getProject.value?.categoryId,
+				demoPreviewUrl: getProject.value?.demoPreviewUrl,
+				deployUrl: getProject.value?.deployUrl,
+				description: getProject.value?.description,
+				startDate: formatDate.formatFK(getProject.value?.startDate),
+				finishDate: formatDate.formatFK(getProject.value?.finishDate),
+				isActive: getProject.value?.isActive,
+				imageUrl: getProject.value?.imageUrl
 			};
 		else setInitialData();
-	});
+	};
+
+	watch([() => getCategories.value, () => isCategories.value], () => setProjectCategories());
+
+	watch([() => getProject.value?.id, () => isEditingProject.value], () => setProject());
 
 	const editProject = (editedProject: Partial<IProject>) => {
-		if (isProject.value && project.value.data)
+		if (isProject.value && getProject.value)
 			return projectStore
 				.updateProject({
-					...project.value.data,
+					...getProject.value,
 					name: editedProject.name,
 					categoryId: editedProject.categoryId,
 					demoPreviewUrl: editedProject.demoPreviewUrl,

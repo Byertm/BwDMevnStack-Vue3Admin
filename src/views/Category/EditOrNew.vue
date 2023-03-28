@@ -42,7 +42,7 @@
 	const formData: Ref<Partial<ICategory>> = ref({});
 	const parentCategories: Ref<FormKitOptionsList> = ref([]);
 
-	const { category, isCategory, isEditingCategory, isErrorCategory, isEmptyCategory, getMainCategories, isMainCategories } = storeToRefs(categoryStore);
+	const { category, getCategory, isCategory, isEditingCategory, isErrorCategory, isEmptyCategory, getMainCategories, isMainCategories } = storeToRefs(categoryStore);
 	const { loading, errors } = toRefs(category.value);
 
 	const setMainCategories = () => {
@@ -63,26 +63,28 @@
 		setMainCategories();
 	};
 
-	watch([() => getMainCategories.value, () => isMainCategories.value], () => setMainCategories());
-
-	watch([() => category.value.data?.id, () => isEditingCategory.value], () => {
+	const setCategory = () => {
 		if (isEditingCategory.value && isCategory.value)
 			formData.value = {
-				name: category.value.data?.name,
-				url: category.value.data?.url || "",
-				parentId: category.value.data?.parentId || null,
-				isActive: category.value.data?.isActive
+				name: getCategory.value?.name,
+				url: getCategory.value?.url || "",
+				parentId: getCategory.value?.parentId || null,
+				isActive: getCategory.value?.isActive
 			};
 		else setInitialData();
-	});
+	};
+
+	watch([() => getMainCategories.value, () => isMainCategories.value], () => setMainCategories());
+
+	watch([() => getCategory.value?.id, () => isEditingCategory.value], () => setCategory());
 
 	categoryStore.getAllTopCategories();
 
 	const editCategory = (editedCategory: Partial<ICategory>) => {
-		if (isCategory.value && category.value.data)
+		if (isCategory.value && getCategory.value)
 			return categoryStore
 				.updateCategory({
-					...category.value.data,
+					...getCategory.value,
 					name: editedCategory.name,
 					url: editedCategory.url || "",
 					parentId: editedCategory.parentId || null,

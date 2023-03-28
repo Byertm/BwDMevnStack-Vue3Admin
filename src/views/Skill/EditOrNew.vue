@@ -36,34 +36,36 @@
 
 	const skillStore = useSkillStore();
 
-	const formData = ref();
+	const formData: Ref<Partial<ISkill>> = ref({});
 
-	const { skill, isSkill, isEditingSkill, isErrorSkill, isEmptySkill } = storeToRefs(skillStore);
+	const { skill, getSkill, isSkill, isEditingSkill, isErrorSkill, isEmptySkill } = storeToRefs(skillStore);
 	const { loading, errors } = toRefs(skill.value);
 
 	const setInitialData = () => {
 		formData.value = {};
 	};
 
-	watch([() => skill.value.data?.id, () => isEditingSkill.value], () => {
+	const setSkill = () => {
 		if (isEditingSkill.value && isSkill.value)
 			formData.value = {
-				name: skill.value.data?.name,
-				url: skill.value.data?.url,
-				imgUrl: skill.value.data?.imgUrl,
-				ratio: skill.value.data?.ratio,
-				isLanguage: skill.value.data?.isLanguage,
-				isSpecial: skill.value.data?.isSpecial,
-				isActive: skill.value.data?.isActive
+				name: getSkill.value?.name,
+				url: getSkill.value?.url,
+				imgUrl: getSkill.value?.imgUrl,
+				ratio: getSkill.value?.ratio,
+				isLanguage: getSkill.value?.isLanguage,
+				isSpecial: getSkill.value?.isSpecial,
+				isActive: getSkill.value?.isActive
 			};
 		else setInitialData();
-	});
+	};
+
+	watch([() => getSkill.value?.id, () => isEditingSkill.value], () => setSkill());
 
 	const editSkill = (editedSkill: Partial<ISkill>) => {
-		if (isSkill.value && skill.value.data) {
+		if (isSkill.value && getSkill.value) {
 			return skillStore
 				.updateSkill({
-					...skill.value.data,
+					...getSkill.value,
 					name: editedSkill.name,
 					url: editedSkill.url,
 					imgUrl: editedSkill.imgUrl,

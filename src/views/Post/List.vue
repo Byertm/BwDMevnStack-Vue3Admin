@@ -71,7 +71,7 @@
 										<td class="uk-width-2-5">{{ post.author?.name }}</td>
 										<td class="uk-width-2-5">{{ getPostTags(post?.tags) }}</td>
 										<td class="uk-width-1-5">
-											<div @click="setPostStatus(post)">
+											<div @click="() => setPostStatus(post)">
 												<span v-if="post.isActive" data-uk-icon="icon:check; ratio:1.2" class="uk-text-success uk-icon"> </span>
 												<span v-else data-uk-icon="icon:close; ratio:1.2" class="uk-text-danger uk-icon"> </span>
 											</div>
@@ -80,8 +80,8 @@
 										<td class="uk-width-1-5">{{ $formatDate.format(post.updatedAt) || null }}</td>
 										<td class="uk-width-1-5">
 											<div class="uk-button-group">
-												<a href="#modalPost" uk-toggle title="Düzenle" data-uk-tooltip data-uk-icon="icon: pencil" @click="editPost(post.id)" class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
-												<a @click="deletePost(post.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
+												<a href="#modalPost" uk-toggle title="Düzenle" data-uk-tooltip data-uk-icon="icon: pencil" @click="() => editPost(post.id)" class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
+												<a @click="() => deletePost(post.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
 											</div>
 										</td>
 									</tr>

@@ -50,7 +50,7 @@
 										<td class="uk-width-2-5">{{ $formatDate.format(education.startDate) || null }}</td>
 										<td class="uk-width-2-5">{{ $formatDate.format(education.finishDate) || null }}</td>
 										<td class="uk-width-1-5">
-											<div @click="setEducationStatus(education)">
+											<div @click="() => setEducationStatus(education)">
 												<span v-if="education.isActive" data-uk-icon="icon:check; ratio:1.2" class="uk-text-success uk-icon"> </span>
 												<span v-else data-uk-icon="icon:close; ratio:1.2" class="uk-text-danger uk-icon"> </span>
 											</div>
@@ -65,9 +65,9 @@
 													title="Düzenle"
 													data-uk-tooltip
 													data-uk-icon="icon: pencil"
-													@click="editEducation(education.id)"
+													@click="() => editEducation(education.id)"
 													class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
-												<a @click="deleteEducation(education.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
+												<a @click="() => deleteEducation(education.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
 											</div>
 										</td>
 									</tr>
@@ -85,7 +85,7 @@
 			<button type="button" uk-close class="uk-modal-close-default"></button>
 
 			<div class="uk-modal-header">
-				<h2 class="uk-modal-title">Add Education</h2>
+				<h2 class="uk-modal-title">{{ isEditingEducation ? "Edit" : "Add" }} Education</h2>
 			</div>
 
 			<div class="uk-modal-body">
@@ -108,7 +108,7 @@
 	const NewOrEdit = defineAsyncComponent({ loader: () => import("@views/Education/EditOrNew.vue") });
 
 	const educationStore = useEducationStore();
-	const { isEducations, isEmptyEducations, getEducations: educations, isErrorEducations, getEducationsErrors: errors } = storeToRefs(educationStore);
+	const { isEducations, isEditingEducation, isEmptyEducations, getEducations: educations, isErrorEducations, getEducationsErrors: errors } = storeToRefs(educationStore);
 	educationStore.getAll();
 
 	const setEducationStatus = async (education: Partial<IEducation>) => {
