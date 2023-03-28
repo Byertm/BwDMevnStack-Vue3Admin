@@ -45,7 +45,7 @@
 
 									<li class="uk-nav-divider"></li>
 									<li>
-										<a @click="emit('logout')"><span data-uk-icon="icon: sign-out"></span> Logout</a>
+										<a @click="() => emit('logout')"><span data-uk-icon="icon: sign-out"></span> Logout</a>
 									</li>
 								</ul>
 							</div>
@@ -65,8 +65,9 @@
 						<li><router-link :to="{ path: '/profile' }" data-uk-tooltip data-uk-icon="icon: user" title="Your Profile"></router-link></li>
 						<li class="uk-disabled"><router-link :to="{ path: '/settings' }" data-uk-tooltip data-uk-icon="icon: settings" title="Settings"></router-link></li>
 						<li><theme-switcher></theme-switcher></li>
-						<li><a @click="emit('logout')" data-uk-icon="icon: sign-out" title="Sign Out" data-uk-tooltip></a></li>
-						<li><a data-uk-toggle data-uk-navbar-toggle-icon href="#offcanvas-nav" title="Offcanvas" data-uk-tooltip class="uk-navbar-toggle"></a></li>
+						<li><a @click="() => emit('logout')" data-uk-icon="icon: sign-out" title="Sign Out" data-uk-tooltip></a></li>
+						<li><a data-uk-navbar-toggle-icon href="#left-col" title="MainMenu" data-uk-tooltip @click="toggleMainMenu" class="uk-navbar-toggle"></a></li>
+						<!-- <li><a data-uk-toggle data-uk-navbar-toggle-icon href="#offcanvas-nav" title="Offcanvas" data-uk-tooltip class="uk-navbar-toggle"></a></li> -->
 					</ul>
 				</div>
 			</nav>
@@ -83,6 +84,10 @@
 	const emit = defineEmits(["logout"]);
 
 	const props = defineProps({ sidebarItems: { type: Array<any>, required: true } });
+
+	const toggleMainMenu = () => {
+		document.documentElement.classList.toggle("main-menu-open");
+	};
 
 	const searchFn = () => {
 		alert(iSearch.value);

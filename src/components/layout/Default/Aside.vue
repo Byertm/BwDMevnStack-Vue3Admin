@@ -1,6 +1,6 @@
 <template>
 	<!-- LEFT BAR -->
-	<aside id="left-col" class="uk-light uk-visible@m">
+	<aside id="left-col" class="uk-light -uk-visible@m">
 		<div class="left-logo uk-flex uk-flex-middle uk-flex-center">
 			<router-link to="/" class="uk-logo uk-flex uk-flex-middle uk-flex-center"><img src="/assets/BwD.svg" alt="" class="custom-logo uk-margin-small-right" /> BwD Admin</router-link>
 			<router-link to="#" class="skip-to-content">İçeriğe Geç</router-link>
@@ -137,4 +137,16 @@
 	const getMe: any = inject("getMe");
 </script>
 
-<style scoped></style>
+<style scoped>
+	@media (max-width: 959px) {
+		#left-col,
+		#left-col .bar-bottom {
+			left: -100%;
+		}
+
+		.main-menu-open #left-col,
+		.main-menu-open #left-col .bar-bottom {
+			left: 0;
+		}
+	}
+</style>
