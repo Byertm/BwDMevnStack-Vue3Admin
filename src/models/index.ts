@@ -11,6 +11,7 @@ export type { ITag } from '@models/tag';
 export type { ITestimonial } from '@models/testimonial';
 export type { IUser } from '@models/user';
 export type { ISection } from '@models/section';
+export type { ISite } from '@models/site';
 export type { IFile } from '@models/file';
 
 // ModelType örneği

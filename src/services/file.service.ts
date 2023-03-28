@@ -15,7 +15,7 @@ const getImageUrlFromFile = (middlePath: string, selectedFile: TSelectedElement)
 };
 
 const getApiImageByImageUrl = (imageUrl?: string | null, isExternal?: boolean) => {
-	return !isExternal ? `${BASE_API_URL}${imageUrl ? imageUrl : ''}` : `${imageUrl}`;
+	return `${!isExternal ? BASE_API_URL : ''}${imageUrl ? imageUrl : ''}`;
 };
 
 const getAll = async () => {

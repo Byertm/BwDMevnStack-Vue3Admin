@@ -26,6 +26,7 @@ export default function (): NavItemType[] {
 		{ to: { name: 'role' }, title: 'Role', htmlBefore: '<span uk-icon="bolt"></span>', htmlAfter: '', icon: 'bolt', disabled: false, visible: true },
 		{ to: { name: 'section' }, title: 'Section', htmlBefore: '<span uk-icon="pagekit"></span>', htmlAfter: '', icon: 'pagekit', disabled: false, visible: true },
 		{ to: { name: 'skill' }, title: 'Skill', htmlBefore: '<span uk-icon="star"></span>', htmlAfter: '', icon: 'star', disabled: false, visible: true },
+		{ to: { name: 'site' }, title: 'Site', htmlBefore: '<span uk-icon="star"></span>', htmlAfter: '', icon: 'star', disabled: false, visible: true },
 		{ to: { name: 'tag' }, title: 'Tag', htmlBefore: '<span uk-icon="tag"></span>', htmlAfter: '', icon: 'tag', disabled: false, visible: true },
 		{ to: { name: 'testimonial' }, title: 'Testimonial', htmlBefore: '<span uk-icon="commenting"></span>', htmlAfter: '', icon: 'commenting', disabled: false, visible: true },
 		{ to: { name: 'user' }, title: 'Users', htmlBefore: '<span uk-icon="users"></span>', htmlAfter: '', icon: 'users', disabled: false, visible: true },

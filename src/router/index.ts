@@ -177,6 +177,20 @@ const sectionManagementRoutes: Array<RouteRecordRaw> = [
 	}
 ];
 
+const siteManagementRoutes: Array<RouteRecordRaw> = [
+	{
+		path: '/site',
+		name: 'site',
+		alias: '/site/view',
+		children: [
+			{ path: '', name: 'siteViewOrEdit', component: () => import('@views/Site/ViewOrEdit.vue') }
+			// { path: '', name: 'siteManagement', component: () => import('@views/Site/List.vue') }
+			// { path: '/new', name: 'newSite', component: () => import('@views/Site/EditOrNew.vue') },
+			// { path: '/update/:id', name: 'updateSite', component: () => import('@views/Site/EditOrNew.vue') }
+		]
+	}
+];
+
 const deletingRoutes: Array<RouteRecordRaw> = [
 	{ path: '/example', name: 'exampleForm', component: () => import('@views/Deleting/ExampleForm.vue'), meta: { layout: 'Default', title: 'Test Form' } },
 	{ path: '/testForm', name: 'testForm', component: () => import('@views/Deleting/TestForm.vue'), meta: { layout: 'Default', title: 'Test Form' } },
@@ -201,6 +215,7 @@ const routes: Array<RouteRecordRaw> = [
 	...userRoutes,
 	...fileManagementRoutes,
 	...sectionManagementRoutes,
+	...siteManagementRoutes,
 	...deletingRoutes,
 
 	{ path: '/errors', name: 'errors', component: () => import('@views/Errors.vue'), meta: { layout: 'Cover' } },
