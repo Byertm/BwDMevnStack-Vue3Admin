@@ -60,9 +60,7 @@ export const useCommentStore = defineStore({
 					this.comment.data = null;
 					this.comment.errors.push(error);
 				})
-				.finally(() => {
-					this.comment.loading = false;
-				});
+				.finally(() => (this.comment.loading = false));
 		},
 		async newComment(comment: Partial<IComment>): Promise<boolean> {
 			this.comment.loading = true;
@@ -142,9 +140,9 @@ export const useCommentStore = defineStore({
 		isEditingComment: (state) => !!state.newOrEditId && (typeof state.newOrEditId === 'string' || (typeof state.newOrEditId === 'number' && state.newOrEditId > -1)),
 		isNewComment: (state) => !state.newOrEditId,
 
-		getComment: (state) => state.comment.data || {},
-		getComments: (state) => state.comments.data || [],
-		getCommentErrors: (state) => state.comment.errors || {},
-		getCommentsErrors: (state) => state.comments.errors || []
+		getComment: (state) => state.comment.data,
+		getComments: (state) => state.comments.data,
+		getCommentErrors: (state) => state.comment.errors,
+		getCommentsErrors: (state) => state.comments.errors
 	}
 });

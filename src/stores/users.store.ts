@@ -63,10 +63,7 @@ export const useUserStore = defineStore({
 					this.user.data = null;
 					this.user.errors.push(error);
 				})
-				.finally(() => {
-					this.user.loading = false;
-					this.getAll();
-				});
+				.finally(() => (this.user.loading = false));
 		},
 		async newUser(user: Partial<IUser>): Promise<boolean> {
 			this.user.loading = true;
@@ -148,10 +145,10 @@ export const useUserStore = defineStore({
 		isEditingUser: (state) => !!state.newOrEditId && (typeof state.newOrEditId === 'string' || (typeof state.newOrEditId === 'number' && state.newOrEditId > -1)),
 		isNewUser: (state) => !state.newOrEditId,
 
-		getMe: (state) => (state.me.data as IUser) || ({} as IUser),
-		getUser: (state) => state.user.data || {},
-		getUsers: (state) => state.users.data || [],
-		getUserErrors: (state) => state.user.errors || {},
-		getUsersErrors: (state) => state.users.errors || []
+		getMe: (state) => state.me.data,
+		getUser: (state) => state.user.data,
+		getUsers: (state) => state.users.data,
+		getUserErrors: (state) => state.user.errors,
+		getUsersErrors: (state) => state.users.errors
 	}
 });

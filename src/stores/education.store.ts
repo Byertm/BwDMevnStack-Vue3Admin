@@ -47,9 +47,7 @@ export const useEducationStore = defineStore({
 					this.education.data = null;
 					this.education.errors.push(error);
 				})
-				.finally(() => {
-					this.education.loading = false;
-				});
+				.finally(() => (this.education.loading = false));
 		},
 		async newEducation(education: Partial<IEducation>): Promise<boolean> {
 			this.education.loading = true;
@@ -129,9 +127,9 @@ export const useEducationStore = defineStore({
 		isEditingEducation: (state) => !!state.newOrEditId && (typeof state.newOrEditId === 'string' || (typeof state.newOrEditId === 'number' && state.newOrEditId > -1)),
 		isNewEducation: (state) => !state.newOrEditId,
 
-		getEducation: (state) => state.education.data || {},
-		getEducations: (state) => state.educations.data || [],
-		getEducationErrors: (state) => state.education.errors || {},
-		getEducationsErrors: (state) => state.educations.errors || []
+		getEducation: (state) => state.education.data,
+		getEducations: (state) => state.educations.data,
+		getEducationErrors: (state) => state.education.errors,
+		getEducationsErrors: (state) => state.educations.errors
 	}
 });

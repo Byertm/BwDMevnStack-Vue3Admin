@@ -61,10 +61,7 @@ export const useSectionStore = defineStore({
 					this.section.data = null;
 					this.section.errors.push(error);
 				})
-				.finally(() => {
-					this.section.loading = false;
-					this.getAll();
-				});
+				.finally(() => (this.section.loading = false));
 		},
 		async getByKey(key: string) {
 			this.section.loading = true;
@@ -157,9 +154,9 @@ export const useSectionStore = defineStore({
 		isEditingSection: (state) => !!state.newOrEditId && (typeof state.newOrEditId === 'string' || (typeof state.newOrEditId === 'number' && state.newOrEditId > -1)),
 		isNewSection: (state) => !state.newOrEditId,
 
-		getSection: (state) => state.section.data || {},
-		getSections: (state) => state.sections.data || [],
-		getSectionErrors: (state) => state.section.errors || {},
-		getSectionsErrors: (state) => state.sections.errors || []
+		getSection: (state) => state.section.data,
+		getSections: (state) => state.sections.data,
+		getSectionErrors: (state) => state.section.errors,
+		getSectionsErrors: (state) => state.sections.errors
 	}
 });

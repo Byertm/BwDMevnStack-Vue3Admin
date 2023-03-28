@@ -11,4 +11,5 @@ export * from '@stores/tag.store';
 export * from '@stores/testimonial.store';
 export * from '@stores/users.store';
 export * from '@stores/section.store';
+export * from '@stores/site.store';
 export * from '@stores/file.store';

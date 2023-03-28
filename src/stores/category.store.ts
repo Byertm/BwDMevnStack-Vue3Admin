@@ -62,9 +62,7 @@ export const useCategoryStore = defineStore({
 					this.category.data = null;
 					this.category.errors.push(error);
 				})
-				.finally(() => {
-					this.category.loading = false;
-				});
+				.finally(() => (this.category.loading = false));
 		},
 		async newCategory(category: Partial<ICategory>): Promise<boolean> {
 			this.category.loading = true;
@@ -146,11 +144,11 @@ export const useCategoryStore = defineStore({
 		isEditingCategory: (state) => !!state.newOrEditId && (typeof state.newOrEditId === 'string' || (typeof state.newOrEditId === 'number' && state.newOrEditId > -1)),
 		isNewCategory: (state) => !state.newOrEditId,
 
-		getCategory: (state) => state.category.data || {},
-		getCategories: (state) => state.categories.data || [],
-		getMainCategories: (state) => state.categories.data || [],
-		getCategoryErrors: (state) => state.category.errors || {},
-		getCategoriesErrors: (state) => state.categories.errors || [],
-		getMainCategoriesErrors: (state) => state.categories.errors || []
+		getCategory: (state) => state.category.data,
+		getCategories: (state) => state.categories.data,
+		getMainCategories: (state) => state.categories.data,
+		getCategoryErrors: (state) => state.category.errors,
+		getCategoriesErrors: (state) => state.categories.errors,
+		getMainCategoriesErrors: (state) => state.categories.errors
 	}
 });

@@ -47,10 +47,7 @@ export const useProjectStore = defineStore({
 					this.project.data = null;
 					this.project.errors.push(error);
 				})
-				.finally(() => {
-					this.project.loading = false;
-					this.getAll();
-				});
+				.finally(() => (this.project.loading = false));
 		},
 		async newProject(project: Partial<IProject>): Promise<boolean> {
 			this.project.loading = true;
@@ -130,9 +127,9 @@ export const useProjectStore = defineStore({
 		isEditingProject: (state) => !!state.newOrEditId && (typeof state.newOrEditId === 'string' || (typeof state.newOrEditId === 'number' && state.newOrEditId > -1)),
 		isNewProject: (state) => !state.newOrEditId,
 
-		getProject: (state) => state.project.data || {},
-		getProjects: (state) => state.projects.data || [],
-		getProjectErrors: (state) => state.project.errors || {},
-		getProjectsErrors: (state) => state.projects.errors || []
+		getProject: (state) => state.project.data,
+		getProjects: (state) => state.projects.data,
+		getProjectErrors: (state) => state.project.errors,
+		getProjectsErrors: (state) => state.projects.errors
 	}
 });

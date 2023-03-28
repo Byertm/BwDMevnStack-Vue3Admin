@@ -47,10 +47,7 @@ export const useTagStore = defineStore({
 					this.tag.data = null;
 					this.tag.errors.push(error);
 				})
-				.finally(() => {
-					this.tag.loading = false;
-					this.getAll();
-				});
+				.finally(() => (this.tag.loading = false));
 		},
 		async newTag(tag: Partial<ITag>): Promise<boolean> {
 			this.tag.loading = true;
@@ -130,9 +127,9 @@ export const useTagStore = defineStore({
 		isEditingTag: (state) => !!state.newOrEditId && (typeof state.newOrEditId === 'string' || (typeof state.newOrEditId === 'number' && state.newOrEditId > -1)),
 		isNewTag: (state) => !state.newOrEditId,
 
-		getTag: (state) => state.tag.data || {},
-		getTags: (state) => state.tags.data || [],
-		getTagErrors: (state) => state.tag.errors || {},
-		getTagsErrors: (state) => state.tags.errors || []
+		getTag: (state) => state.tag.data,
+		getTags: (state) => state.tags.data,
+		getTagErrors: (state) => state.tag.errors,
+		getTagsErrors: (state) => state.tags.errors
 	}
 });

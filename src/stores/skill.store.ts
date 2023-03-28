@@ -47,10 +47,7 @@ export const useSkillStore = defineStore({
 					this.skill.data = null;
 					this.skill.errors.push(error);
 				})
-				.finally(() => {
-					this.skill.loading = false;
-					this.getAll();
-				});
+				.finally(() => (this.skill.loading = false));
 		},
 		async newSkill(skill: Partial<ISkill>): Promise<boolean> {
 			this.skill.loading = true;
@@ -130,9 +127,9 @@ export const useSkillStore = defineStore({
 		isEditingSkill: (state) => !!state.newOrEditId && (typeof state.newOrEditId === 'string' || (typeof state.newOrEditId === 'number' && state.newOrEditId > -1)),
 		isNewSkill: (state) => !state.newOrEditId,
 
-		getSkill: (state) => state.skill.data || {},
-		getSkills: (state) => state.skills.data || [],
-		getSkillErrors: (state) => state.skill.errors || {},
-		getSkillsErrors: (state) => state.skills.errors || []
+		getSkill: (state) => state.skill.data,
+		getSkills: (state) => state.skills.data,
+		getSkillErrors: (state) => state.skill.errors,
+		getSkillsErrors: (state) => state.skills.errors
 	}
 });

@@ -47,10 +47,7 @@ export const useRoleStore = defineStore({
 					this.role.data = null;
 					this.role.errors.push(error);
 				})
-				.finally(() => {
-					this.role.loading = false;
-					this.getAll();
-				});
+				.finally(() => (this.role.loading = false));
 		},
 		async newRole(role: Partial<IRole>): Promise<boolean> {
 			this.role.loading = true;
@@ -130,9 +127,9 @@ export const useRoleStore = defineStore({
 		isEditingRole: (state) => !!state.newOrEditId && (typeof state.newOrEditId === 'string' || (typeof state.newOrEditId === 'number' && state.newOrEditId > -1)),
 		isNewRole: (state) => !state.newOrEditId,
 
-		getRole: (state) => state.role.data || {},
-		getRoles: (state) => state.roles.data || [],
-		getRoleErrors: (state) => state.role.errors || {},
-		getRolesErrors: (state) => state.roles.errors || []
+		getRole: (state) => state.role.data,
+		getRoles: (state) => state.roles.data,
+		getRoleErrors: (state) => state.role.errors,
+		getRolesErrors: (state) => state.roles.errors
 	}
 });

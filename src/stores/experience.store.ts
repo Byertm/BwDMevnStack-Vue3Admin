@@ -47,9 +47,7 @@ export const useExperienceStore = defineStore({
 					this.experience.data = null;
 					this.experience.errors.push(error);
 				})
-				.finally(() => {
-					this.experience.loading = false;
-				});
+				.finally(() => (this.experience.loading = false));
 		},
 		async newExperience(experience: Partial<IExperience>): Promise<boolean> {
 			this.experience.loading = true;
@@ -129,9 +127,9 @@ export const useExperienceStore = defineStore({
 		isEditingExperience: (state) => !!state.newOrEditId && (typeof state.newOrEditId === 'string' || (typeof state.newOrEditId === 'number' && state.newOrEditId > -1)),
 		isNewExperience: (state) => !state.newOrEditId,
 
-		getExperience: (state) => state.experience.data || {},
-		getExperiences: (state) => state.experiences.data || [],
-		getExperienceErrors: (state) => state.experience.errors || {},
-		getExperiencesErrors: (state) => state.experiences.errors || []
+		getExperience: (state) => state.experience.data,
+		getExperiences: (state) => state.experiences.data,
+		getExperienceErrors: (state) => state.experience.errors,
+		getExperiencesErrors: (state) => state.experiences.errors
 	}
 });

@@ -84,10 +84,7 @@ export const usePostStore = defineStore({
 					this.post.data = null;
 					this.post.errors.push(error);
 				})
-				.finally(() => {
-					this.post.loading = false;
-					this.getAll();
-				});
+				.finally(() => (this.post.loading = false));
 		},
 		async getBySlug(slug: string) {
 			this.post.loading = true;
@@ -187,15 +184,15 @@ export const usePostStore = defineStore({
 		isEditingPost: (state) => !!state.newOrEditId && (typeof state.newOrEditId === 'string' || (typeof state.newOrEditId === 'number' && state.newOrEditId > -1)),
 		isNewPost: (state) => !state.newOrEditId,
 
-		getPost: (state) => state.post.data || {},
-		getPosts: (state) => state.posts.data || [],
-		getMainPosts: (state) => state.posts.data || [],
-		getPostsAndPagination: (state) => state.postsAndPagination.data || [],
-		getPostsAndPaginationData: (state) => state.postsAndPagination?.data?.data || [],
+		getPost: (state) => state.post.data,
+		getPosts: (state) => state.posts.data,
+		getMainPosts: (state) => state.posts.data,
+		getPostsAndPagination: (state) => state.postsAndPagination.data,
+		getPostsAndPaginationData: (state) => state.postsAndPagination?.data?.data,
 
-		getPostErrors: (state) => state.post.errors || {},
-		getPostsErrors: (state) => state.posts.errors || [],
-		getMainPostsErrors: (state) => state.posts.errors || [],
-		getPostsAndPaginationErrors: (state) => state.postsAndPagination.errors || []
+		getPostErrors: (state) => state.post.errors,
+		getPostsErrors: (state) => state.posts.errors,
+		getMainPostsErrors: (state) => state.posts.errors,
+		getPostsAndPaginationErrors: (state) => state.postsAndPagination.errors
 	}
 });

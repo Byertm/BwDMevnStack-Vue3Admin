@@ -47,10 +47,7 @@ export const useTestimonialStore = defineStore({
 					this.testimonial.data = null;
 					this.testimonial.errors.push(error);
 				})
-				.finally(() => {
-					this.testimonial.loading = false;
-					this.getAll();
-				});
+				.finally(() => (this.testimonial.loading = false));
 		},
 		async newTestimonial(testimonial: Partial<ITestimonial>): Promise<boolean> {
 			this.testimonial.loading = true;
@@ -130,9 +127,9 @@ export const useTestimonialStore = defineStore({
 		isEditingTestimonial: (state) => !!state.newOrEditId && (typeof state.newOrEditId === 'string' || (typeof state.newOrEditId === 'number' && state.newOrEditId > -1)),
 		isNewTestimonial: (state) => !state.newOrEditId,
 
-		getTestimonial: (state) => state.testimonial.data || {},
-		getTestimonials: (state) => state.testimonials.data || [],
-		getTestimonialErrors: (state) => state.testimonial.errors || {},
-		getTestimonialsErrors: (state) => state.testimonials.errors || []
+		getTestimonial: (state) => state.testimonial.data,
+		getTestimonials: (state) => state.testimonials.data,
+		getTestimonialErrors: (state) => state.testimonial.errors,
+		getTestimonialsErrors: (state) => state.testimonials.errors
 	}
 });
