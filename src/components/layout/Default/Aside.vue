@@ -9,7 +9,7 @@
 		<div class="left-content-box content-box-dark">
 			<router-link to="/" class="uk-logo uk-flex uk-flex-column uk-flex-middle uk-flex-center"><img src="/assets/BwD.svg" alt="" class="uk-border-circle profile-img" /></router-link>
 
-			<h4 v-if="isMe" class="uk-text-center uk-margin-remove-vertical text-light">{{ !!getMe.name ? getMe.name : "" }}</h4>
+			<h4 v-if="isMe && getMe" class="uk-text-center uk-margin-remove-vertical text-light">{{ getMe.name }}</h4>
 
 			<div class="mouse-tracker uk-flex uk-margin-auto uk-flex-center">
 				<div class="uk-margin-small-right">X: {{ x }}</div>
@@ -36,7 +36,7 @@
 						</li>
 						<li class="uk-nav-divider"></li>
 						<li>
-							<a @click="emit('logout')"><span data-uk-icon="icon: sign-out"></span> Logout</a>
+							<a @click="() => emit('logout')"><span data-uk-icon="icon: sign-out"></span> Logout</a>
 						</li>
 					</ul>
 				</div>
@@ -124,14 +124,17 @@
 
 <script setup lang="ts">
 	import { useMouse } from "@src/composables/mouse-tracker";
+	import { IUser } from "@models/index";
+
 	const { x, y } = useMouse();
 	const emit = defineEmits(["logout"]);
 
 	const props = defineProps({
 		sidebarItems: { type: Array<any>, required: true },
-		isMe: { type: Boolean, required: true },
-		getMe: { type: Object, required: true }
+		isMe: { type: Boolean, required: true }
 	});
+
+	const getMe: any = inject("getMe");
 </script>
 
 <style scoped></style>

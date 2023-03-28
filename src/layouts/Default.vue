@@ -1,7 +1,7 @@
 <template>
 	<Header :sidebar-items="sidebarItems" @logout="logout"></Header>
 
-	<Aside :sidebar-items="sidebarItems" :is-me="isMe" :get-me="getMe" @logout="logout"></Aside>
+	<Aside :sidebar-items="sidebarItems" :is-me="isMe" @logout="logout"></Aside>
 
 	<Content>
 		<slot name="default"></slot>
@@ -21,6 +21,8 @@
 	const authStore = useAuthStore();
 	const userStore = useUserStore();
 	const { getMe, isMe } = storeToRefs(userStore);
+
+	provide("getMe", getMe);
 
 	const sidebarItems = getSidebarItems();
 

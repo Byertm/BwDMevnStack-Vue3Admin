@@ -1,5 +1,5 @@
 <template>
-	<div v-if="isMe" class="eb-page-container">
+	<div v-if="isMe && getMe" class="eb-page-container">
 		<div class="uk-grid-large uk-grid" uk-grid="">
 			<div class="uk-width-1-4@m uk-first-column">
 				<div class="uk-box-shadow-small uk-border-rounded uk-padding">
@@ -116,7 +116,7 @@
 	});
 
 	watch([() => getMe.value, () => isMe.value], (_newValue) => {
-		filteredRoles.value = isRoles.value ? getRoles.value.filter((role: IRole) => (isMe.value && getMe.value?.roles ? getMe.value.roles?.findIndex((meRole) => role.id === meRole) > -1 : false)) : [];
+		filteredRoles.value = isRoles.value && getRoles.value ? getRoles.value.filter((role: IRole) => (isMe.value && getMe.value?.roles ? getMe.value.roles?.findIndex((meRole) => role.id === meRole) > -1 : false)) : [];
 	});
 
 	// const getPostTags = (postTags: Partial<ITag>[] | null | undefined) => {
