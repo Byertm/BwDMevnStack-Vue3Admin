@@ -1,8 +1,8 @@
-import { computed, customRef, reactive, shallowRef } from 'vue';
+import { computed, reactive, shallowRef } from 'vue';
 import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 export type { CancelToken, isCancel, AxiosError } from 'axios'; // Todo: CancelToken, isCancel kontrolleri sağlanacak.
 import { BASE_API_URL } from '@utils/constants';
-import { getLS, getLSWithParse, setLSWithModel, setLSWithStringfyForData } from '@src/composables/local-storage';
+import { getLS, setLSWithModel, setLSWithStringfyForData } from '@src/composables/local-storage';
 // import { useAxios } from '@vueuse/integrations/useAxios';
 import axios from 'axios';
 
@@ -27,10 +27,7 @@ const createInstance = (url: string = BASE_API_URL): AxiosInstance => {
 export const instance: AxiosInstance = createInstance();
 
 function refreshToken(_instance: AxiosInstance = instance) {
-	const user = getLSWithParse('user');
-	// ! Todo: Buradaki email kalkacak başba bir yol düşünülecek.
-	const userEmail = !!user?.email ? user.email : 'ersin@mail.com';
-	return _instance.post('refreshToken', { email: userEmail, refreshToken: getLS('refreshToken') });
+	return _instance.post('refreshToken', { refreshToken: getLS('refreshToken') });
 }
 
 const useMiddleware = (_instance: AxiosInstance = instance) => {

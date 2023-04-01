@@ -1,15 +1,12 @@
 import axios, { AxiosInstance } from 'axios';
 export type { CancelToken, isCancel, AxiosError } from 'axios';
 import { BASE_API_URL } from '@utils/constants';
-import { getLS, getLSWithParse, setLSWithModel, setLSWithStringfyForData } from '@src/composables/local-storage';
+import { getLS, setLSWithModel, setLSWithStringfyForData } from '@src/composables/local-storage';
 
 const axiosInstance: AxiosInstance = axios.create({ baseURL: BASE_API_URL, headers: { 'Content-type': 'application/json' } });
 
 function refreshToken() {
-	const user = getLSWithParse('user');
-	// ! Todo: Buradaki email kalkacak başba bir yol düşünülecek.
-	const userEmail = !!user?.email ? user.email : 'ersin@mail.com';
-	return axiosInstance.post('refreshToken', { email: userEmail, refreshToken: getLS('refreshToken') });
+	return axiosInstance.post('refreshToken', { refreshToken: getLS('refreshToken') });
 }
 
 axiosInstance.interceptors.request.use(

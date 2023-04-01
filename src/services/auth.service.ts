@@ -1,4 +1,4 @@
-import { getLS, getLSWithParse } from '@src/composables/local-storage';
+import { getLS } from '@src/composables/local-storage';
 import { useFetch } from '@utils/index';
 import { authLogin, authRefreshToken, authRegister } from '.';
 
@@ -19,10 +19,7 @@ const me = async () => {
 };
 
 const refreshToken = async () => {
-	const user = getLSWithParse('user');
-	//! Todo: Burası önemli, değişmesi gerekiyor !!!
-	const userEmail = !!user?.email ? user.email : 'ersin@mail.com';
-	return useFetch.post('refreshToken', { data: { email: userEmail, refreshToken: getLS('refreshToken') } }); // getLocalRefreshToken()
+	return useFetch.post('refreshToken', { data: { refreshToken: getLS('refreshToken') } });
 };
 
 const logout = async () => {
