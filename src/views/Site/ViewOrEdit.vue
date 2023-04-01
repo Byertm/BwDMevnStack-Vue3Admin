@@ -324,7 +324,7 @@
 	});
 
 	onBeforeMount(() => {
-		siteStore.get();
+		if (!isSite.value) siteStore.get();
 	});
 </script>
 
