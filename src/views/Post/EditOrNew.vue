@@ -127,10 +127,10 @@
 
 	watch([() => getPost.value?.id, () => isEditingPost.value], () => setPost());
 
-	// postStore.getAllTopPosts();
-	categoryStore.getAll();
-	tagStore.getAll();
-	userStore.getAll();
+	// if (!isMainPosts.value) postStore.getAllTopPosts();
+	if (!isCategories.value) categoryStore.getAll();
+	if (!isTags.value) tagStore.getAll();
+	if (!isUsers.value) userStore.getAll();
 
 	const editPost = (editedPost: Partial<IPostRequest>) => {
 		if (isPost.value && getPost.value)

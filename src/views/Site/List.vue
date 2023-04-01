@@ -107,7 +107,7 @@
 
 	const siteStore = useSiteStore();
 	const { isSites, isEditingSite, isEmptySites, getSites: sites, isErrorSites, getSitesErrors: errors } = storeToRefs(siteStore);
-	siteStore.getAll();
+	if (!isSites.value) siteStore.getAll();
 
 	// const setSiteStatus = async (site: Partial<ISite>) => {
 	// 	await siteStore.updateSite({ ...site, isActive: !site.isActive });

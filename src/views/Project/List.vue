@@ -122,8 +122,8 @@
 	const { isProjects, isEmptyProjects, getProjects: projects, isErrorProjects, getProjectsErrors: errors, isEditingProject } = storeToRefs(projectStore);
 	const { getCategories: categories, isCategories } = storeToRefs(categoryStore);
 
-	projectStore.getAll();
-	categoryStore.getAll();
+	if (!isProjects.value) projectStore.getAll();
+	if (!isCategories.value) categoryStore.getAll();
 
 	const setCategoryList = () => categories.value && (categoryList.value = categories.value);
 

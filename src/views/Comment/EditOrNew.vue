@@ -42,7 +42,7 @@
 	const { getPosts, isPosts } = storeToRefs(postStore);
 	const { loading, errors } = toRefs(comment.value);
 
-	postStore.getAll();
+	if (!isPosts.value) postStore.getAll();
 
 	const setPostList = () => (postList.value = getPosts.value ? [...getPosts.value.map((post) => ({ label: post.title, value: post.id, attrs: { disabled: false } }))] : []);
 

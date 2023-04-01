@@ -269,7 +269,7 @@
 	const { getSite, isSite, isEmptySite, isErrorSite } = storeToRefs(siteStore);
 
 	const router = useRouter();
-	siteStore.get();
+	if (!isSite.value) siteStore.get();
 
 	let site: ISite = reactive<ISite>({} as ISite);
 

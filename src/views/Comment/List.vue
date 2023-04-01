@@ -127,10 +127,11 @@
 
 	const postStore = usePostStore();
 	const commentStore = useCommentStore();
+
 	const { getPosts, isPosts } = storeToRefs(postStore);
 	const { isComments, isEditingComment, isEmptyComments, getComments: categories, isErrorComments, getCommentsErrors: errors } = storeToRefs(commentStore);
-	commentStore.getAll();
 
+	if (!isComments.value) commentStore.getAll();
 	if (!isPosts.value) postStore.getAll();
 
 	const setPostList = () => (postList.value = getPosts.value ? [...getPosts.value] : []);

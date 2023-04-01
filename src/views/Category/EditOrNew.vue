@@ -78,7 +78,7 @@
 
 	watch([() => getCategory.value?.id, () => isEditingCategory.value], () => setCategory());
 
-	categoryStore.getAllTopCategories();
+	if (!isMainCategories.value) categoryStore.getAllTopCategories();
 
 	const editCategory = (editedCategory: Partial<ICategory>) => {
 		if (isCategory.value && getCategory.value)

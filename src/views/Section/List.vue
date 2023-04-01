@@ -104,7 +104,7 @@
 
 	const sectionStore = useSectionStore();
 	const { isSections, isEditingSection, isEmptySections, getSections: sections, isErrorSections, getSectionsErrors: errors } = storeToRefs(sectionStore);
-	sectionStore.getAll();
+	if (!isSections.value) sectionStore.getAll();
 
 	const setSectionStatus = async (section: Partial<ISection>) => {
 		await sectionStore.updateSection({ ...section, isActive: !section.isActive });

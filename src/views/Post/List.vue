@@ -80,7 +80,14 @@
 										<td class="uk-width-1-5">{{ $formatDate.format(post.updatedAt) || null }}</td>
 										<td class="uk-width-1-5">
 											<div class="uk-button-group">
-												<a href="#modalPost" uk-toggle title="Düzenle" data-uk-tooltip data-uk-icon="icon: pencil" @click="() => editPost(post.id)" class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
+												<a
+													href="#modalPost"
+													uk-toggle
+													title="Düzenle"
+													data-uk-tooltip
+													data-uk-icon="icon: pencil"
+													@click="() => editPost(post.id)"
+													class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
 												<a @click="() => deletePost(post.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
 											</div>
 										</td>
@@ -149,8 +156,8 @@
 	} = storeToRefs(postStore);
 	const { isTags, isEmptyTags, getTags: tags } = storeToRefs(tagStore);
 
-	// postStore.getAll();
-	postStore.getAllWithPagination({ ...paginationOptions });
+	// if (!isPosts.value) postStore.getAll();
+	if (!isPosts.value) postStore.getAllWithPagination({ ...paginationOptions });
 
 	const setOptions = (postsAndPagination: any) => {
 		paginationOptions.hasNext = postsAndPagination?.hasNext || false;

@@ -111,7 +111,7 @@
 	const roleStore = useRoleStore();
 	const { isUsers, isEditingUser, isEmptyUsers, getUsers: users, isErrorUsers, getUsersErrors: errors } = storeToRefs(userStore);
 	const { isRoles, getRoles: roles } = storeToRefs(roleStore);
-	userStore.getAll();
+	if (!isUsers.value) userStore.getAll();
 
 	const setRoleList = () => roles.value && (roleList.value = roles.value);
 

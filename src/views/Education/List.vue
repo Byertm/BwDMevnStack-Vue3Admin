@@ -109,7 +109,8 @@
 
 	const educationStore = useEducationStore();
 	const { isEducations, isEditingEducation, isEmptyEducations, getEducations: educations, isErrorEducations, getEducationsErrors: errors } = storeToRefs(educationStore);
-	educationStore.getAll();
+
+	if (!isEducations.value) educationStore.getAll();
 
 	const setEducationStatus = async (education: Partial<IEducation>) => {
 		await educationStore.updateEducation({ ...education, isActive: !education.isActive });

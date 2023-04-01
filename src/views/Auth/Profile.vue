@@ -129,7 +129,7 @@
 	// };
 
 	onBeforeMount(() => {
-		roleStore.getAll();
+		if (!roleStore.isRoles) roleStore.getAll();
 	});
 </script>
 

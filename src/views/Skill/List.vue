@@ -134,7 +134,7 @@
 
 	const skillStore = useSkillStore();
 	const { isSkills, isEditingSkill, isEmptySkills, getSkills: skills, isErrorSkills, getSkillsErrors: errors } = storeToRefs(skillStore);
-	skillStore.getAll();
+	if (!isSkills.value) skillStore.getAll();
 
 	const setSkillStatus = async (skill: Partial<ISkill>) => {
 		await skillStore.updateSkill({ ...skill, isActive: !skill.isActive });

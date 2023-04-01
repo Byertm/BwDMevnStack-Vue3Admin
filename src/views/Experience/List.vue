@@ -109,7 +109,8 @@
 
 	const experienceStore = useExperienceStore();
 	const { isExperiences, isEditingExperience, isEmptyExperiences, getExperiences: experiences, isErrorExperiences, getExperiencesErrors: errors } = storeToRefs(experienceStore);
-	experienceStore.getAll();
+
+	if (!isExperiences.value) experienceStore.getAll();
 
 	const setExperienceStatus = async (experience: Partial<IExperience>) => {
 		await experienceStore.updateExperience({ ...experience, isActive: !experience.isActive });

@@ -72,7 +72,8 @@ async function startApp() {
 		await authStore.refreshToken();
 
 		const userStore = useUserStore();
-		await userStore.getMeData();
+
+		if (!userStore.isMe) await userStore.getMeData();
 	} catch {
 		// catch error to start app on success or failure
 	}

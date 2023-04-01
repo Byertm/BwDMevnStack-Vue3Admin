@@ -96,7 +96,7 @@
 
 	const tagStore = useTagStore();
 	const { isTags, isEditingTag, isEmptyTags, getTags: tags, isErrorTags, getTagsErrors: errors } = storeToRefs(tagStore);
-	tagStore.getAll();
+	if (!isTags.value) tagStore.getAll();
 
 	const setTagStatus = async (tag: Partial<ITag>) => {
 		await tagStore.updateTag({ ...tag, isActive: !tag.isActive });

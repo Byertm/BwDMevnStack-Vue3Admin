@@ -53,7 +53,7 @@
 	const { getCategories, isCategories } = storeToRefs(categoryStore);
 	const { loading, errors } = toRefs(project.value);
 
-	categoryStore.getAll();
+	if (!isCategories.value) categoryStore.getAll();
 
 	const setProjectCategories = () => {
 		if (getCategories.value)

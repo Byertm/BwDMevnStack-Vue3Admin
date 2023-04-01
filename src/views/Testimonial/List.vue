@@ -101,7 +101,7 @@
 
 	const testimonialStore = useTestimonialStore();
 	const { isTestimonials, isEditingTestimonial, isEmptyTestimonials, getTestimonials: testimonials, isErrorTestimonials, getTestimonialsErrors: errors } = storeToRefs(testimonialStore);
-	testimonialStore.getAll();
+	if (!isTestimonials.value) testimonialStore.getAll();
 
 	const setTestimonialStatus = async (testimonial: Partial<ITestimonial>) => {
 		await testimonialStore.updateTestimonial({ ...testimonial, isActive: !testimonial.isActive });

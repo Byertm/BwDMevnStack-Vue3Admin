@@ -109,7 +109,8 @@
 
 	const categoryStore = useCategoryStore();
 	const { isCategories, isEmptyCategories, getCategories: categories, isErrorCategories, getCategoriesErrors: errors, isEditingCategory } = storeToRefs(categoryStore);
-	categoryStore.getAll();
+
+	if (!isCategories.value) categoryStore.getAll();
 
 	const setCategoryList = () => categories.value && (categoryList.value = categories.value);
 

@@ -99,7 +99,7 @@
 
 	const roleStore = useRoleStore();
 	const { isRoles, isEditingRole, isEmptyRoles, getRoles: roles, isErrorRoles, getRolesErrors: errors } = storeToRefs(roleStore);
-	roleStore.getAll();
+	if (!isRoles.value) roleStore.getAll();
 
 	const setRoleStatus = async (role: Partial<IRole>) => {
 		await roleStore.updateRole({ ...role, isActive: !role.isActive });
