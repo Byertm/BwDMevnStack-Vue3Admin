@@ -39,7 +39,7 @@ export default defineConfig({
 		}
 	},
 	server: {
-		open: true
+		open: false,
 		// cors: false,
 		// proxy: {
 		// 	'/api': {
