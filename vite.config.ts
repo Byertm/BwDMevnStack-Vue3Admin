@@ -11,7 +11,7 @@ export default defineConfig({
 			include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/],
 			imports: ['vue', 'vue-router', 'pinia', { from: 'vue-router', imports: ['RouteLocationRaw'], type: true }],
 			dts: true,
-			cache: false,
+			// cache: false,
 			vueTemplate: true,
 			eslintrc: { enabled: true }
 		})
