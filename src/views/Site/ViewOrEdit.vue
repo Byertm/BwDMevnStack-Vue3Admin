@@ -59,7 +59,7 @@
 									<label for="i" class="uk-form-label">Logo Image</label>
 									<div class="uk-form-controls">
 										<!-- <input v-model="site.logo.imageUrl" type="text" class="uk-input uk-border-rounded" /> -->
-										<FormKit
+										<!-- <FormKit
 											type="cis"
 											category-name="site"
 											label="Site Logo Image Url"
@@ -67,7 +67,7 @@
 											help="About image select"
 											validation=""
 											data-validation-visibility="live"
-											class="uk-input uk-border-rounded" />
+											class="uk-input uk-border-rounded" /> -->
 									</div>
 								</div>
 							</div>
@@ -147,7 +147,7 @@
 															<label for="iFirstName" class="uk-form-label">About Image Url</label>
 															<div class="uk-form-controls">
 																<!-- <input v-model="site.owner.info.about.imageUrl" type="text" class="uk-input uk-border-rounded" /> -->
-																<FormKit
+																<!-- <FormKit
 																	type="cis"
 																	category-name="about"
 																	label="Site Logo Image Url"
@@ -155,7 +155,7 @@
 																	help="About image select"
 																	validation=""
 																	data-validation-visibility="live"
-																	class="uk-input uk-border-rounded" />
+																	class="uk-input uk-border-rounded" /> -->
 															</div>
 														</div>
 													</div>
