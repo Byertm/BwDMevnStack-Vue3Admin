@@ -115,6 +115,16 @@ button:focus-visible {
 	}
 }
 
+.uk-table-striped-expanded tbody tr:nth-of-type(odd):not([hidden]),
+.uk-table-striped-expanded > tr:nth-of-type(odd):not([hidden]) {
+	background-color: #f0f0f0;
+}
+
+.uk-table-striped-expanded tbody tr:nth-of-type(even):not([hidden]),
+.uk-table-striped-expanded > tr:nth-of-type(even):not([hidden]) {
+	background-color: #ffffff;
+}
+
 .uk-notification-message {
 	--bg-color: #1a1a1a;
 	--clr: #f9f9f9;

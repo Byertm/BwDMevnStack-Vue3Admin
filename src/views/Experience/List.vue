@@ -29,10 +29,11 @@
 							<table data-uk-scrollspy="cls:uk-animation-fade;" class="uk-table uk-table-middle uk-table-divider uk-table-small uk-table-striped uk-table-justify uk-scrollspy-inview">
 								<thead>
 									<tr>
+										<th></th>
 										<th>Experience Title</th>
 										<th>Experience Scholl</th>
 										<th>Experience Section</th>
-										<th>Experience Description</th>
+										<!-- <th>Experience Description</th> -->
 										<th>Start Date</th>
 										<th>Finish Date</th>
 										<th>Active</th>
@@ -42,35 +43,62 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr v-for="experience in experiences" :key="experience.id">
-										<td class="uk-width-2-5">{{ experience.title }}</td>
-										<td class="uk-width-2-5">{{ experience.company }}</td>
-										<td class="uk-width-2-5">{{ experience.section }}</td>
-										<td class="uk-width-2-5">{{ experience.description }}</td>
-										<td class="uk-width-2-5">{{ $formatDate.format(experience.startDate) || null }}</td>
-										<td class="uk-width-2-5">{{ $formatDate.format(experience.finishDate) || null }}</td>
-										<td class="uk-width-1-5">
-											<div @click="() => setExperienceStatus(experience)">
-												<span v-if="experience.isActive" data-uk-icon="icon:check; ratio:1.2" class="uk-text-success uk-icon"> </span>
-												<span v-else data-uk-icon="icon:close; ratio:1.2" class="uk-text-danger uk-icon"> </span>
-											</div>
-										</td>
-										<td class="uk-width-1-5">{{ $formatDate.format(experience.createdAt) || null }}</td>
-										<td class="uk-width-1-5">{{ $formatDate.format(experience.updatedAt) || null }}</td>
-										<td class="uk-width-1-5">
-											<div class="uk-button-group">
-												<a
-													href="#modalExperience"
-													uk-toggle
-													title="Düzenle"
+									<template v-for="experience in experiences" :key="experience.id">
+										<tr>
+											<td class="uk-width-auto">
+												<button
+													type="button"
+													:data-id="experience.id"
+													data-uk-icon="icon: chevron-down"
 													data-uk-tooltip
-													data-uk-icon="icon: pencil"
-													@click="() => editExperience(experience.id)"
-													class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
-												<a @click="() => deleteExperience(experience.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
-											</div>
-										</td>
-									</tr>
+													title="Detay Göster"
+													:uk-toggle="`target: .row-detail[data-id='${experience.id}'], .detail-btn[data-id='${experience.id}']`"
+													class="detail-btn uk-icon-button uk-button-secondary uk-margin-small-right"></button>
+												<button
+													type="button"
+													:data-id="experience.id"
+													data-uk-icon="icon: chevron-up"
+													data-uk-tooltip
+													title="Detay Gizle"
+													:uk-toggle="`target: .row-detail[data-id='${experience.id}'], .detail-btn[data-id='${experience.id}']`"
+													hidden
+													class="detail-btn uk-icon-button uk-button-secondary uk-margin-small-right"></button>
+											</td>
+											<td class="uk-width-auto">{{ experience.title }}</td>
+											<td class="uk-width-auto">{{ experience.company }}</td>
+											<td class="uk-width-auto">{{ experience.section }}</td>
+											<!-- <td class="uk-width-expand">{{ experience.description }}</td> -->
+											<td class="uk-width-auto">{{ $formatDate.format(experience.startDate) || null }}</td>
+											<td class="uk-width-auto">{{ $formatDate.format(experience.finishDate) || null }}</td>
+											<td class="uk-width-auto">
+												<div @click="() => setExperienceStatus(experience)">
+													<span v-if="experience.isActive" data-uk-icon="icon:check; ratio:1.2" class="uk-text-success uk-icon"> </span>
+													<span v-else data-uk-icon="icon:close; ratio:1.2" class="uk-text-danger uk-icon"> </span>
+												</div>
+											</td>
+											<td class="uk-width-auto">{{ $formatDate.format(experience.createdAt) || null }}</td>
+											<td class="uk-width-auto">{{ $formatDate.format(experience.updatedAt) || null }}</td>
+											<td class="uk-width-auto">
+												<div class="uk-button-group">
+													<a
+														href="#modalExperience"
+														uk-toggle
+														title="Düzenle"
+														data-uk-tooltip
+														data-uk-icon="icon: pencil"
+														@click="() => editExperience(experience.id)"
+														class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
+													<a @click="() => deleteExperience(experience.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
+												</div>
+											</td>
+										</tr>
+
+										<tr :data-id="experience.id" hidden class="row-detail">
+											<td colspan="10" class="uk-table-expand">
+												<div class="uk-padding-small">{{ experience.description }}</div>
+											</td>
+										</tr>
+									</template>
 								</tbody>
 							</table>
 						</div>

@@ -103,6 +103,8 @@
 	import { ICategory } from "@models/index";
 	import toast from "@utils/toast";
 
+	defineOptions({ name: "CategoryList", inheritAttrs: false });
+
 	const NewOrEdit = defineAsyncComponent({ loader: () => import("@views/Category/EditOrNew.vue") });
 
 	const categoryList: Ref<ICategory[]> = ref([]);

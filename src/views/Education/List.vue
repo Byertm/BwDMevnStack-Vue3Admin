@@ -29,10 +29,11 @@
 							<table data-uk-scrollspy="cls:uk-animation-fade;" class="uk-table uk-table-middle uk-table-divider uk-table-small uk-table-striped uk-table-justify uk-scrollspy-inview">
 								<thead>
 									<tr>
+										<th></th>
 										<th>Education Title</th>
 										<th>Education Scholl</th>
 										<th>Education Section</th>
-										<th>Education Description</th>
+										<!-- <th class="uk-table-expand">Education Description</th> -->
 										<th>Start Date</th>
 										<th>Finish Date</th>
 										<th>Active</th>
@@ -42,35 +43,61 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr v-for="education in educations" :key="education.id">
-										<td class="uk-width-2-5">{{ education.title }}</td>
-										<td class="uk-width-2-5">{{ education.scholl }}</td>
-										<td class="uk-width-2-5">{{ education.section }}</td>
-										<td class="uk-width-2-5">{{ education.description }}</td>
-										<td class="uk-width-2-5">{{ $formatDate.format(education.startDate) || null }}</td>
-										<td class="uk-width-2-5">{{ $formatDate.format(education.finishDate) || null }}</td>
-										<td class="uk-width-1-5">
-											<div @click="() => setEducationStatus(education)">
-												<span v-if="education.isActive" data-uk-icon="icon:check; ratio:1.2" class="uk-text-success uk-icon"> </span>
-												<span v-else data-uk-icon="icon:close; ratio:1.2" class="uk-text-danger uk-icon"> </span>
-											</div>
-										</td>
-										<td class="uk-width-1-5">{{ $formatDate.format(education.createdAt) || null }}</td>
-										<td class="uk-width-1-5">{{ $formatDate.format(education.updatedAt) || null }}</td>
-										<td class="uk-width-1-5">
-											<div class="uk-button-group">
-												<a
-													href="#modalEducation"
-													uk-toggle
-													title="Düzenle"
+									<template v-for="education in educations" :key="education.id">
+										<tr>
+											<td class="uk-width-auto">
+												<button
+													type="button"
+													:data-id="education.id"
+													data-uk-icon="icon: chevron-down"
 													data-uk-tooltip
-													data-uk-icon="icon: pencil"
-													@click="() => editEducation(education.id)"
-													class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
-												<a @click="() => deleteEducation(education.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
-											</div>
-										</td>
-									</tr>
+													title="Detay Göster"
+													:uk-toggle="`target: .row-detail[data-id='${education.id}'], .detail-btn[data-id='${education.id}']`"
+													class="detail-btn uk-icon-button uk-button-secondary uk-margin-small-right"></button>
+												<button
+													type="button"
+													:data-id="education.id"
+													data-uk-icon="icon: chevron-up"
+													data-uk-tooltip
+													title="Detay Gizle"
+													:uk-toggle="`target: .row-detail[data-id='${education.id}'], .detail-btn[data-id='${education.id}']`"
+													hidden
+													class="detail-btn uk-icon-button uk-button-secondary uk-margin-small-right"></button>
+											</td>
+											<td class="uk-width-auto">{{ education.title }}</td>
+											<td class="uk-width-auto">{{ education.scholl }}</td>
+											<td class="uk-width-auto">{{ education.section }}</td>
+											<!-- <td class="uk-table-expand uk-width-expand">{{ education.description }}</td> -->
+											<td class="uk-width-auto">{{ $formatDate.format(education.startDate) || null }}</td>
+											<td class="uk-width-auto">{{ $formatDate.format(education.finishDate) || null }}</td>
+											<td class="uk-width-auto">
+												<div @click="() => setEducationStatus(education)">
+													<span v-if="education.isActive" data-uk-icon="icon:check; ratio:1.2" class="uk-text-success uk-icon"> </span>
+													<span v-else data-uk-icon="icon:close; ratio:1.2" class="uk-text-danger uk-icon"> </span>
+												</div>
+											</td>
+											<td class="uk-width-auto">{{ $formatDate.format(education.createdAt) || null }}</td>
+											<td class="uk-width-auto">{{ $formatDate.format(education.updatedAt) || null }}</td>
+											<td class="uk-width-auto">
+												<div class="uk-button-group">
+													<a
+														href="#modalEducation"
+														uk-toggle
+														title="Düzenle"
+														data-uk-tooltip
+														data-uk-icon="icon: pencil"
+														@click="() => editEducation(education.id)"
+														class="uk-icon-button uk-button-secondary uk-margin-small-right"></a>
+													<a @click="() => deleteEducation(education.id)" title="Sil" data-uk-tooltip uk-icon="trash" class="uk-icon-button uk-button-danger"></a>
+												</div>
+											</td>
+										</tr>
+										<tr :data-id="education.id" hidden class="row-detail">
+											<td colspan="10" class="uk-table-expand">
+												<div class="uk-padding-small">{{ education.description }}</div>
+											</td>
+										</tr>
+									</template>
 								</tbody>
 							</table>
 						</div>

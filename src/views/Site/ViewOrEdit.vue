@@ -263,6 +263,8 @@
 	import { ISite } from "@models/index";
 	import toast from "@utils/toast";
 
+	defineOptions({ name: "Site_ViewOrEdit", inheritAttrs: false });
+
 	// const { getRoles, isRoles } = storeToRefs(roleStore);
 	// const { getMe, isMe } = storeToRefs(userStore);
 	const siteStore = useSiteStore();
@@ -295,6 +297,7 @@
 	const setSiteLogo = () => {
 		alert("Çok hızlısın ama daha hazırlıkları bitirmedik :(");
 	};
+
 	// if (authStore.isNotAuth && !isMe) router.push("/login");
 
 	// const logout = () => {
@@ -328,21 +331,23 @@
 	});
 </script>
 
-<style scoped>
-	.uk-accordion-content > .uk-accordion {
-		margin-left: 1.5rem;
-	}
+<style lang="scss" scoped>
+	.uk-accordion {
+		&-content > .uk-accordion {
+			margin-left: 1.5rem;
+		}
 
-	.uk-accordion-title {
-		background-color: #3399ff;
-		color: #ffffff;
-		padding: 0.5rem;
-		border-radius: 0.25rem;
-	}
+		&-title {
+			background-color: #3399ff;
+			color: #ffffff;
+			padding: 0.5rem;
+			border-radius: 0.25rem;
+		}
 
-	.uk-accordion-content {
-		background-color: rgba(0, 0, 0, 0.05);
-		margin: 0;
-		padding: 1rem;
+		&-content {
+			background-color: rgba(0, 0, 0, 0.05);
+			margin: 0;
+			padding: 1rem;
+		}
 	}
 </style>

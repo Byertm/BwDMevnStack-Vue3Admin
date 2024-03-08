@@ -22,6 +22,8 @@
 	import { i18nAddResources, i18nChangeLanguage, i18nGetResources, IDomEditor, IEditorConfig, IToolbarConfig } from "@wangeditor/editor";
 	import { Editor, Toolbar } from "@wangeditor/editor-for-vue";
 
+	defineOptions({ name: "WangEditor", inheritAttrs: false });
+
 	const props = defineProps<{ context: any }>();
 
 	// i18nAddResources("tr", { header: { title: "başlık", text: "metin" } });

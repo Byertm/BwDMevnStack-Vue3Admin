@@ -101,6 +101,8 @@
 	import { ISite } from "@models/index";
 	import toast from "@utils/toast";
 
+	defineOptions({ name: "Site_List", inheritAttrs: false });
+
 	// const formatDate: any = inject("formatDate");
 
 	const NewOrEdit = defineAsyncComponent({ loader: () => import("@views/Site/EditOrNew.vue") });
